@@ -1,0 +1,65 @@
+{
+    "extensionFlow": "ONDEMAND",
+    "consignment": "TC0014_TOPTEST00014",
+    "orderType": -1,
+    "vehicle": {
+        "type": 1,
+        "amount": 1
+    },
+    "sender": {
+        "name": "Panuwit Supageeratirod",
+        "phone": "0873842085",
+        "address": "True Digital park 101 Sukhumvit Bangchak Bangkok 10120",
+        "postcode": "10120",
+        "lat": 13.6851249,
+        "lng": 100.6088319,
+        "pickUpAt": {
+            "start": "2020-02-04T07:00:00.000Z",
+            "end": "2020-02-04T10:00:00.000Z"
+        },
+        "note": "Test Automation Robot"
+    },
+    "recipients": [
+        {
+            "name": "Pattareya Putaworakun",
+            "phone": "0805192296",
+            "address": "Asoke tower ถนน สุขุมวิท แขวง คลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร",
+            "postcode": "10120",
+            "lat": 13.7456081,
+            "lng": 100.5619628,
+            "parcels": [
+                {
+                    "productId": "34001",
+                    "sku": "000000000051050233",
+                    "name": "ซีพี เนื้ออกไก่ล้วน 1 กิโลกรัม (แช่แข็ง)",
+                    "description": "ซีพี เนื้ออกไก่ล้วน 1 กิโลกรัม (แช่แข็ง) ผลิตภัณฑ์คุณภาพจากซีพีเอฟ ด้วยเทคโนโลยีการผลิตของซีพีเอฟทุกขั้นตอน จากสายพันธุ์ไก่คุณภาพเยี่ยม สะอาด ถูกหลักอนามัย เลี้ยงในฟาร์มระบบปิดซึ่งควบคุมด้วยคอมพิวเตอร์ ป้องกันโรคและการปนเปื้อนอย่างเข้มงวด ผ่านกระบวนการผลิตและปรุงสำเร็จจากโรงงานที่ทันสมัยได้มาตรฐานระดับโลก ทั้งนี้เรายังมีระบบขนส่งที่ได้รับมาตราฐาน ทำให้ลูกค้ามั่นใจได้ว่าจะได้รับสินค้า",
+                    "price": 60,
+                    "weight": 1000,
+                    "dimension": {
+                        "width": 50,
+                        "height": 23.22,
+                        "length": 77.78
+                    }
+                },
+                {
+                    "productId": "34045",
+                    "sku": "000000000051050534",
+                    "name": "เห็ดหอมสด 100 กรัม",
+                    "description": "ส่งสินค้าตรงจาก cpfreshmart",
+                    "price": 29,
+                    "weight": 100,
+                    "dimension": {
+                        "width": 20,
+                        "height": 40.21,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 89
+            },
+            "note": "Test Automation Robot "
+        }
+    ]
+}
