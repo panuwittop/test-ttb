@@ -1,8 +1,8 @@
 *** Settings ***
-Resource    ../global_resource.robot
+Resource    ../../global_resource.robot
 Resource    ../global_variable.robot
-Resource    ../authentication.robot
-Resource    ../user_keywords.robot
+Resource    ../../authentication.robot
+Resource    user_keywords_login.robot
 
 *** Test Cases ***
 

@@ -3,6 +3,7 @@ Resource    ../global_resource.robot
 Resource    ../global_variable.robot
 Resource    ../user_keywords.robot
 Resource    ../authentication.robot
+Resource    user_keywords_trip_task_todo.robot
 
 
 *** Test Cases ***
@@ -58,10 +59,10 @@ TC_004_GET TASK ACCEPT TRIP
     Set Global Variable                           ${TodoID[0]}                
 
 TC_005_PUT TASK ACCEPT TRIP
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}    project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID[0]}          data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID[0]}          data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -82,10 +83,10 @@ TC_006_GET TASK PICK UP
     Set Global Variable                           ${TodoID_PICKUP[4]} 
 
 TC_007_PUT START TASK PICKUP
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}     project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_PICKUP[0]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_PICKUP[0]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -93,30 +94,30 @@ TC_007_PUT START TASK PICKUP
 
 
 TC_008_PUT CHECK IN PICKUP
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}     project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_PICKUP[1]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_PICKUP[1]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
     sleep                                         3s
 
 TC_009_PUT Take a photo (pick up)
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}     project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_009_Take_Photo.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_PICKUP[2]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_PICKUP[2]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
     sleep                                         3s
 
 TC_010_PUT POD (pick up)
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}     project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_010_POD.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_PICKUP[3]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_PICKUP[3]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -124,10 +125,10 @@ TC_010_PUT POD (pick up)
 
 
 TC_011_PUT PICKED UP (pick up)
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}     project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_PICKUP[4]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_PICKUP[4]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -150,10 +151,10 @@ TC_0012_GET TASK DELIVERY
     Set Global Variable                           ${TodoID_Delivery[5]} 
 
 TC_0013_PUT START TASK DELIVERY
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}       project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_Delivery[0]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_Delivery[0]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -161,20 +162,20 @@ TC_0013_PUT START TASK DELIVERY
 
 
 TC_0014_PUT CHECK IN DELIVERY
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}       project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_Delivery[1]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_Delivery[1]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
     sleep                                         3s
 
 TC_0015_PUT Take a photo (DELIVERY)
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                    https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}       project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_009_Take_Photo.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_Delivery[2]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_Delivery[2]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -182,20 +183,20 @@ TC_0015_PUT Take a photo (DELIVERY)
 
 
 TC_0016_PUT COD (DELIVERY)
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}       project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_016_COD.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_Delivery[3]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_Delivery[3]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
     sleep                                         3s
 
 TC_017_PUT POD (DELIVERY)
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}       project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_010_POD.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_Delivery[4]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_Delivery[4]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
@@ -203,10 +204,10 @@ TC_017_PUT POD (DELIVERY)
 
 
 TC_018_PUT TASK DELIVERED
-    Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
+    Create Session                                session                     https://api.staging.true-e-logistics.com
     ${headers}=                                   Create Dictionary           Authorization=${Token}                               Content-Type=${Content-Type}       project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
     ${json_string}                                Get File                    TC_004_lat_long.json
-    ${resp}=                                      PUT Request                 session                                              /v1/todos/${TodoID_Delivery[5]}    data=${json_string}                    headers=${headers} 
+    ${resp}=                                      PUT Request                 session                                              /v1/mobile/todos/${TodoID_Delivery[5]}    data=${json_string}                    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 

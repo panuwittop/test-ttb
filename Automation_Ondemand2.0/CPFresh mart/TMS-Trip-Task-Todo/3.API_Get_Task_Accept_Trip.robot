@@ -3,6 +3,7 @@ Resource    ../global_resource.robot
 Resource    ../global_variable.robot
 Resource    ../user_keywords.robot
 Resource    ../authentication.robot
+Resource    user_keywords_trip_task_todo.robot
 
 
 
