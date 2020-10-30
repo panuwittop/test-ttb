@@ -70,3 +70,12 @@ ${project-id}                   5ec78aecf3a41244b9031586
 ${company-id}                   5ea93cda890a1f52c86637e3
 ${language_th}                  th 
 ${language_en}                  en
+
+
+*** Variables ***
+##### Endpoint ####
+${on_demand_host_1}           http://app-4pl-authentication.drivs.staging.tel.internal
+${on_demand_host_staing_1}    http://10.150.0.67:8080
+${path_1}                     /v1/auth/login-citizen-id
+
+

@@ -49,20 +49,20 @@ TC_0003_Customer_Create_Order_access token if invalid
     To verify create order access token if invalid             ${resp}
 
 # TC_0005_Customer_Create_Order_Time out
-#     Create Session                                             session                    ${on_demand_host}
-#     ${headers}=                                                Create Dictionary          apiKey=${api-key}             Content-Type=${Content-Type}    x-consumer-username=CPF
-#     ${resp}=                                                   Post Request               session                ${path}                         data=${json_string}        headers=${headers}
-#     log                                                        ${resp.json()}             
-#     ${http_status_res_code}=                                   Set Variable               ${resp.status_code}
-#     Validation Http status code 500 the request time out   ${http_status_res_code}  
-    
+#    Create Session                                          session                    ${on_demand_host}
+#    ${headers}=                                             Create Dictionary          apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
+#    ${resp}=                                                Post Request               session                ${path}                         data=${json_string}        headers=${headers}
+#    log                                                     ${resp.json()}             
+#    ${http_status_res_code}=                                Set Variable               ${resp.status_code}
+#    Validation Http status code 500 the request time out    ${http_status_res_code}    
+
 TC_0006_Customer_Create_Order_data not found
-    Create Session                                             session                    ${on_demand_host}
-    ${headers}=                                                Create Dictionary          apiKey=${api-key}             Content-Type=${Content-Type}    x-consumer-username=CPF
-    ${resp}=                                                   Post Request               session               /v1/orderx/xxx                         data=${json_string}        headers=${headers}
-    log                                                        ${resp.json()}             
-    ${http_status_res_code}=                                   Set Variable               ${resp.status_code}
-    Validation Http status code 404 NOT FOUND     ${http_status_res_code}
+    Create Session                               session                    ${on_demand_host}
+    ${headers}=                                  Create Dictionary          apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
+    ${resp}=                                     Post Request               session                /v1/orderx/xxx                  data=${json_string}        headers=${headers}
+    log                                          ${resp.json()}             
+    ${http_status_res_code}=                     Set Variable               ${resp.status_code}
+    Validation Http status code 404 NOT FOUND    ${http_status_res_code}
 
 
 TC_0007_Customer_required field consignment
