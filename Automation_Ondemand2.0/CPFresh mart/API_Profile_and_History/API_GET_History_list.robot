@@ -12,6 +12,16 @@ Setting Selenium Options
     Set Selenium Speed      10s
     Set Selenium Timeout    60
 
+Login_driver
+    Create Session                                session                    http://app-4pl-authentication.drivs.staging.tel.internal
+    ${headers}=                                   Create Dictionary          apiKey=${api-key}                                           Content-Type=${Content-Type}    x-consumer-username=CPF
+    ${json_string}                                Get File                   TC_001_login.json
+    ${resp}=                                      Post Request               session                                                     /v1/auth/login-citizen-id       data=${json_string}        headers=${headers} 
+    ${http_status_res_code}=                      Set Variable               ${resp.status_code}
+    log                                           ${resp.json()}             
+    Validation Http status code success 200 OK    ${http_status_res_code}    
+    ${Authorization}=                                     Get From Dictionary        ${resp.json()["data"]}                                      token
+    Set Global Variable                           ${Authorization}
 
 TC_001_GET History list (Thai language)
     Create Session                                session                    https://api.staging.true-e-logistics.com
