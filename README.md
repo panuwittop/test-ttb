@@ -2,14 +2,14 @@
 should be connect VPN : tel-sg
 
 # Install python 3.7.2
-URL : https://www.python.org/downloads/release/python-372/
-python --version
+ - URL : https://www.python.org/downloads/release/python-372/
+ - python --version
 
 
 # Install robotframework
-pip install robotframework
-robot --version
-pip install robotframework-selenium2library
+ - pip install robotframework
+ - robot --version
+ - pip install robotframework-selenium2library
 
 | Resource files | Description |
 | ------ | ------ |
@@ -20,27 +20,23 @@ pip install robotframework-selenium2library
 | global_variable.robot | List of global variable |
 | custom_keyword.robot | List of custom keyword ( custom library) |
 
-#Example Robotframework
+# Example Robotframework
+
 Settings Library
+
 *** Settings ***
-Library    Selenium2Library
+ - Library    Selenium2Library
 
 *** Variables ***
-${browser}    chrome
-${url}        https://api.staging.true-e-logistics.com
-${path}       ondemand-gateway/v1/order
+ - ${browser}    chrome
+ - ${url}        https://api.staging.true-e-logistics.com
+ - ${path}       ondemand-gateway/v1/order
 
 *** Keywords ***
-Validation Http status code success 200 OK
-    [Arguments]                   ${http_status_res_code}
-    Should Be Equal As Strings    ${http_status_res_code}    200
+ - Validation Http status code success 200 OK
+ -  [Arguments]                   ${http_status_res_code}
+ -  Should Be Equal As Strings    ${http_status_res_code}    200
 
 *** Test Cases ***
-TC_0001_Login to success
-    Create Session                                session                                 ${on_demand_host_1}
-    ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
-    ${json_string}                                Get File                                TC_001_Login.json
-    ${resp}=                                      Post Request                            session                               $               {path_1}                         data=${json_string}      headers=${headers}
-    log                                           ${resp.json()}             
-    ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
-    Validation Http status code success 200 OK    ${http_status_res_code}     
+ - TC_0001_Login to success
+  
