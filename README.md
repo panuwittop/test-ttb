@@ -10,6 +10,7 @@ should be connect VPN : tel-sg
  - pip install robotframework
  - robot --version
  - pip install robotframework-selenium2library
+ - pip install robotframework-requests
 
 | Resource files | Description |
 | ------ | ------ |
