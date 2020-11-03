@@ -17,8 +17,8 @@ To verify create order success
 
 To verify create order Duplicate consignment
     [Arguments]                   ${resp}                
-    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"][0]["constraints"]}    isNotDuplicate
-    Should Be Equal As Strings    ${ResMessage}          consignment is duplicate
+    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"]}    message
+    Should Be Equal As Strings    ${ResMessage}          consignment TOPTEST0000004 is duplicate
 
 To verify create order access token if invalid
     [Arguments]                   ${resp}                
@@ -27,29 +27,29 @@ To verify create order access token if invalid
 
 To verify create order required field
     [Arguments]                   ${resp}
-    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"][0]["constraints"]}    isNotEmpty
-    Should Be Equal As Strings    ${ResMessage}          consignment should not be empty
+    ${ResMessage} =               Get From Dictionary    ${resp.json()}    errors
+    Should Be Equal As Strings    ${ResMessage[1]}          consignment should not be empty
 
 To verify create order required 2 field
     [Arguments]                   ${resp}
-    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"][1]["constraints"]}    isInt
-    Should Be Equal As Strings    ${ResMessage}          orderType must be an integer number
+    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"]}    message
+    Should Be Equal As Strings    ${ResMessage}          Invalid body, check 'errors' property for more info.
 
 
 To verify create order order type incorrect
     [Arguments]                   ${resp}
-    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"][0]["constraints"]}    isValidOrderType
-    Should Be Equal As Strings    ${ResMessage}          orderType is not valid
+    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"]}    message
+    Should Be Equal As Strings    ${ResMessage}          order type is invalid
 
 To verify create order vehicle type number incorrect
     [Arguments]                   ${resp}
-    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"][0]["children"][0]["constraints"]}    isValidVehicleType
-    Should Be Equal As Strings    ${ResMessage}          type is not valid
+    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"]}    message
+    Should Be Equal As Strings    ${ResMessage}          vehicle type is invalid
 
 To verify consignment must be a string
     [Arguments]                   ${resp}
-    ${ResMessage} =               Get From Dictionary    ${resp.json()["error"][0]["constraints"]}    isString
-    Should Be Equal As Strings    ${ResMessage}          consignment must be a string
+    ${ResMessage} =               Get From Dictionary    ${resp.json()}    errors
+    Should Be Equal As Strings    ${ResMessage[0]}          consignment must be a string
 
 To verify note sender and recipients
     [Arguments]                   ${resp}
