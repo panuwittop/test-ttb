@@ -10,7 +10,7 @@
         "phone": "083-9889780",
         "address": "True Digital park 101 Sukhumvit Road, Bangkok 10260 Thailand",
         "lat": 13.6855281,
-        "lng": 100.6110932,
+        "lng": 100.6110932, 
         "note": "ทดสอบระบบ TOPTEST",
         "pickUpAt": {
             "start": "2020-09-24T04:07:00.000Z"

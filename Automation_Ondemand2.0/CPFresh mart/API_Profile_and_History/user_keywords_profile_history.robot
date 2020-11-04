@@ -15,22 +15,22 @@ The requested endpoint does not exist
     ${ResMessage_1} =             Get From Dictionary    ${resp.json()}    message
     Should Be Equal As Strings    ${ResMessage_1}        The requested endpoint does not exist.
 
-Value is invalid type projectId list history
+Validation an error message from incorrect projectId
     [Arguments]                   ${resp}
     ${ResMessage_1} =             Get From Dictionary    ${resp.json()}    message
     Should Be Equal As Strings    ${ResMessage_1}        Cannot destructure property `distance` of 'undefined' or 'null'.
 
-Value is invalid type companyId list history
+Validation an error message from incorrect companyId
     [Arguments]                   ${resp}
     ${ResMessage_1} =             Get From Dictionary    ${resp.json()}    message
     Should Be Equal As Strings    ${ResMessage_1}        Cannot destructure property `distance` of 'undefined' or 'null'.
 
-Validation status text correctly
+Validation order status text correctly
     [Arguments]                   ${resp}
     ${ResMessage_1} =             Get From Dictionary    ${resp.json()["data"]}    statusText
     Should Be Equal As Strings    ${ResMessage_1}        สำเร็จ
 
-Validation status text incorrectly
+Validation order status text incorrectly
     [Arguments]                   ${resp}
     ${ResMessage_1} =             Get From Dictionary    ${resp.json()["data"]}    statusText
     Should Be Equal As Strings    ${ResMessage_1}        ไม่สำเร็จ

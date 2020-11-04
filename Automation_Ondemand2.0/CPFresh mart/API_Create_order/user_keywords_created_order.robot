@@ -83,7 +83,7 @@ To verify create order type
     ${ResMessage} =               Get From Dictionary    ${resp.json()["data"]["data"]}    orderType
     Should Be Equal As Strings    ${ResMessage}          2
 
-Validation random consignment number
+To verify random consignment number
     [Arguments]          ${json_string}
     ${json_random}=      evaluate                  json.loads('''${json_string}''')          json
     ${random_int}        Generate random string    4                                         0123456789
@@ -91,7 +91,7 @@ Validation random consignment number
     ${json_string}=      evaluate                  json.dumps(${json_random})                json
     [Return]             ${json_string}
 
-Validation pickup time
+To verify pickup time
    [Arguments]          ${json_string} 
     ${json_random}=      evaluate                  json.loads('''${json_string}''')          json
     set to dictionary    ${json_random["sender"]["pickUpAt"]}      start=2020-09-17T07:45:16.071Z

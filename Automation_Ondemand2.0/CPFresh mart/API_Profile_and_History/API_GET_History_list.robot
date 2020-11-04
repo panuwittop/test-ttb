@@ -40,7 +40,7 @@ TC_002_GET History list (Englist language)
     Validation Http status code success 200 OK    ${http_status_res_code}    
 
 
-TC_003_GET History list access token unauthorized
+TC_003_GET History list with unauthorized account 
     Create Session                    session              https://api.staging.true-e-logistics.com
     ${headers}=                       Create Dictionary    Authorization=xxxxxx                        Content-Type=${Content-Type}    project-id=${project-id}    company-id=${company-id}    language=${language_th}    
     ${resp}=                          Get Request          session                                     /v1/mobile/driver/schedule      headers=${headers}
@@ -49,7 +49,7 @@ TC_003_GET History list access token unauthorized
     Validation driver unauthorized    ${resp}              
 
 
-TC_004_GET History list path environment incorect
+TC_004_GET History list with incorrect path environment
     Create Session                               session                    https://api.staging.true-e-logistics.com
     ${headers}=                                  Create Dictionary          Authorization=${Authorization}              Content-Type=${Content-Type}    project-id=${project-id}    company-id=${company-id}    language=${language_th}    
     ${resp}=                                     Get Request                session                                     /v1/mobile/driver/schedulexx    headers=${headers}
@@ -59,20 +59,20 @@ TC_004_GET History list path environment incorect
     The requested endpoint does not exist        ${resp}                    
 
 
-TC_005_GET History list projectId incorect
+TC_005_GET History list with incorrect projectId
     Create Session                                           session                    https://api.staging.true-e-logistics.com
     ${headers}=                                              Create Dictionary          Authorization=${Authorization}              Content-Type=${Content-Type}    project-id=xxxx       company-id=${company-id}    language=${language_th}    
     ${resp}=                                                 Get Request                session                                     /v1/mobile/driver/schedule      headers=${headers}    
     log                                                      ${resp.json()}
     ${http_status_res_code}=                                 Set Variable               ${resp.status_code}                         
     Validation Http status code 500 Internal Server Error    ${http_status_res_code}    
-    Value is invalid type projectId list history             ${resp} 
+    Validation an error message from incorrect projectId             ${resp} 
 
-# TC_006_GET History list companyId incorect
+# TC_006_GET History list with incorrect companyId
 #    Create Session                                           session                    https://api.staging.true-e-logistics.com
 #    ${headers}=                                              Create Dictionary          Authorization=${Authorization}              Content-Type=${Content-Type}    project-id=${project-id}    company-id=xxxx    language=${language_th}    
 #    ${resp}=                                                 Get Request                session                                     /v1/mobile/driver/schedule      headers=${headers}
 #    ${http_status_res_code}=                                 Set Variable               ${resp.status_code}                         
 #    log                                                      ${resp.json()} 
 #    Validation Http status code 500 Internal Server Error    ${http_status_res_code}    
-#    Value is invalid type companyId list history             ${resp} 
+#    Validation an error message from incorrect companyId           ${resp} 

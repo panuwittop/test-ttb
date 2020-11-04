@@ -17,7 +17,7 @@ TC_0001_Customer_Create_Order
     Create Session                                session                                 ${on_demand_host}
     ${headers}=                                   Create Dictionary                       apiKey=${api-key}                     Content-Type=${Content-Type}    x-consumer-username=CPF
     ${json_string}                                Get File                                TC_0001_Customer_Create_Order.json
-    ${new_json_string}=                           Validation random consignment number    ${json_string}
+    ${new_json_string}=                           To verify random consignment number    ${json_string}
     ${resp}=                                      Post Request                            session                               ${path}                         data=${new_json_string}    headers=${headers} 
     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
     log                                           ${resp.json()}                          
@@ -91,7 +91,7 @@ TC_0008_Customer_required 2 field consignment
 TC_0009_ Customer_Add note sender and recipient
     Create Session                                session                                 ${on_demand_host}
     ${headers}=                                   Create Dictionary                       apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
-    ${new_json_string}=                           Validation random consignment number    ${json_string}
+    ${new_json_string}=                           To verify random consignment number    ${json_string}
     ${resp}=                                      Post Request                            session                ${path}                         data=${new_json_string}    headers=${headers}
     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
     log                                           ${resp.json()} 
@@ -103,8 +103,8 @@ TC_0009_ Customer_Add note sender and recipient
 TC_0010_ Customer_Chcek lat and lng sender and recipient
     Create Session                                session                                 ${on_demand_host}
     ${headers}=                                   Create Dictionary                       apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
-    Validation random consignment number          ${json_string}
-    ${new_json_string}=                           Validation random consignment number    ${json_string}
+    To verify random consignment number          ${json_string}
+    ${new_json_string}=                           To verify random consignment number    ${json_string}
     ${resp}=                                      Post Request                            session                ${path}                         data=${new_json_string}    headers=${headers}
     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
     log                                           ${resp.json()} 
@@ -115,7 +115,7 @@ TC_0010_ Customer_Chcek lat and lng sender and recipient
 TC_0012_ Customer_Chcek Check Time zone
     Create Session                                session                                 ${on_demand_host}
     ${headers}=                                   Create Dictionary                       apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
-    ${new_json_string}=                           Validation random consignment number    ${json_string}
+    ${new_json_string}=                           To verify random consignment number    ${json_string}
     ${resp}=                                      Post Request                            session                ${path}                         data=${new_json_string}    headers=${headers}
     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
     log                                           ${resp.json()} 
@@ -126,7 +126,7 @@ TC_0012_ Customer_Chcek Check Time zone
 TC_0013_Check field consignment if user fill-in data with string
     Create Session                                session                                 ${on_demand_host}
     ${headers}=                                   Create Dictionary                       apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
-    ${new_json_string}=                           Validation random consignment number    ${new_json_string}
+    ${new_json_string}=                           To verify random consignment number    ${new_json_string}
     ${resp}=                                      Post Request                            session                ${path}                         data=${new_json_string}    headers=${headers}
     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
     log                                           ${resp.json()} 
@@ -148,7 +148,7 @@ TC_0014_Validation order type number equal -1
 TC_0015_Validation orderType correct
     Create Session                                session                                 ${on_demand_host}
     ${headers}=                                   Create Dictionary                       apiKey=${api-key}      Content-Type=${Content-Type}    x-consumer-username=CPF
-    ${new_json_string}=                           Validation random consignment number    ${new_json_string}
+    ${new_json_string}=                           To verify random consignment number    ${new_json_string}
     ${resp}=                                      Post Request                            session                ${path}                         data=${new_json_string}    headers=${headers}
     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
     log                                           ${resp.json()} 
@@ -157,7 +157,7 @@ TC_0015_Validation orderType correct
     # To verify create order type       ${resp}
 
 
-TC_0016_Validation filed vehicle type number incorrect
+TC_0016_Validation field vehicle type number incorrect
     Create Session                                          session                    ${on_demand_host}
     ${headers}=                                             Create Dictionary          apiKey=${api-key}                                              Content-Type=${Content-Type}    x-consumer-username=CPF
     ${json_string}                                          Get File                   TC_0016_Validation filed vehicle type number incorrect.json
