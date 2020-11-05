@@ -139,8 +139,7 @@ TC_0012_GET TASK DELIVERY
     Create Session                                session                     http://app-4pl-tms-api.drivs.staging.tel.internal
     ${headers}=                                   Create Dictionary           apiKey=${api-key}                                    Content-Type=${Content-Type}    x-consumer-username=CPF    
     ${resp}=                                      Get Request                 session                                              /v1/tasks/${TaskID[2]}
-    ${http_status_res_code}=                      Set Variable             
-       ${resp.status_code}                                  
+    ${http_status_res_code}=                      Set Variable             ${resp.status_code}                                  
     log                                           ${resp.json()}              
     Validation Http status code success 200 OK    ${http_status_res_code} 
     ${TodoID_Delivery}=                           Get From Dictionary         ${resp.json()["data"]}                               todos
