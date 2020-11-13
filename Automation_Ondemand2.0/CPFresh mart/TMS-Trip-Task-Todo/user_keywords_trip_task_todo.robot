@@ -95,4 +95,29 @@ Validation delivered duplicate
     [Arguments]                   ${resp}
     ${ResMessage_1} =             Get From Dictionary    ${resp.json()["error"]}    message
     Should Be Equal As Strings    ${ResMessage_1}       Not allowed to delivered in the done trip
+
+Validation driver online success 
+    [Arguments]                   ${resp}
+    ${ResMessage} =             Get From Dictionary    ${resp.json()["data"]}    status
+    Should Be Equal As Strings    ${ResMessage}       ONLINE
+
+Validation driver offline success 
+    [Arguments]                   ${resp}
+    ${ResMessage} =             Get From Dictionary    ${resp.json()["data"]}     status
+    Should Be Equal As Strings    ${ResMessage}       OFFLINE
   
+
+Validation driver online/offline is required field             
+    [Arguments]                   ${resp}
+    ${ResMessage} =             Get From Dictionary    ${resp.json()}     message
+    Should Be Equal As Strings    ${ResMessage}       field is required
+
+Validation driver unauthorized
+     [Arguments]                   ${resp}
+    ${ResMessage} =             Get From Dictionary    ${resp.json()}     message
+    Should Be Equal As Strings    ${ResMessage}       Unauthorized
+
+Validation endpoint does not exist
+    [Arguments]                   ${resp}
+    ${ResMessage} =             Get From Dictionary    ${resp.json()}     message
+    Should Be Equal As Strings    ${ResMessage}       The requested endpoint does not exist.
