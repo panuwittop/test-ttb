@@ -12,8 +12,7 @@ Setting Selenium Options
     Set Selenium Speed      10s
     Set Selenium Timeout    60
 
-
-TC_0001_Login
+TC_001_Driver Login success
     Create Session                                session                    http://app-4pl-authentication.drivs.staging.tel.internal
     ${headers}=                                   Create Dictionary          apiKey=${api-key}                                           Content-Type=${Content-Type}    x-consumer-username=CPF
     ${json_string}                                Get File                   TC_001_login.json
@@ -22,8 +21,17 @@ TC_0001_Login
     log                                           ${resp.json()}             
     Validation Http status code success 200 OK    ${http_status_res_code}    
     ${Token}=                                     Get From Dictionary        ${resp.json()["data"]}                                      token
-    Set Global Variable                           ${Token}
+    Set Global Variable                           ${Token}    
 
+DRIVER ONLINE SUCCESS
+    Create Session                                session                     https://api.staging.true-e-logistics.com
+    ${headers}=                                   Create Dictionary           Authorization=${Token}                      Content-Type=${Content-Type}     project-id=5ec78aecf3a41244b9031586    company-id=5ea93cda890a1f52c86637e3    
+    ${json_string}                                Get File                    TC_000_Driver_online.json
+    ${resp}=                                      PUT Request                 session                                     /v1/mobile/staff/updateStatus    data=${json_string}                    headers=${headers} 
+    ${http_status_res_code}=                      Set Variable                ${resp.status_code}                         
+    log                                           ${resp.json()}              
+    Validation Http status code success 200 OK    ${http_status_res_code} 
+    Validation driver online success              ${resp} 
 
 TC_002_GET TRIP LIST
     Create Session                                session                    http://app-4pl-tms-api.drivs.staging.tel.internal
