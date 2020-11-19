@@ -14,14 +14,6 @@ Validation Http status code success
     ${STATUS_CODE}=                Set Variable           ${resp.status_code}
     [Return]                       ${STATUS_CODE}
     
-Validation Http status code success 200 OK
-    [Arguments]                   ${http_status_res_code}
-    Should Be Equal As Strings    ${http_status_res_code}    200
-
-
-Validation status code 404 Bad request
-    [Arguments]                   ${http_status_res_code}
-    Should Be Equal As Strings    ${http_status_res_code}    404
 
 Validation data should have required property 'password'
     [Arguments]                   ${resp}
