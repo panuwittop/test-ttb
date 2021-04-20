@@ -20,7 +20,7 @@ Login_driver
     ${http_status_res_code}=                      Set Variable               ${resp.status_code}
     log                                           ${resp.json()}             
     Validation Http status code success 200 OK    ${http_status_res_code}    
-    ${Authorization}=                                     Get From Dictionary        ${resp.json()["data"]}                                      token
+    ${Authorization}=                             Get From Dictionary        ${resp.json()["data"]}                                      token
     Set Global Variable                           ${Authorization}
 
 TC_001_GET History detail happy case (order status : delivered)
@@ -30,7 +30,7 @@ TC_001_GET History detail happy case (order status : delivered)
     log                                           ${resp.json()}             
     ${http_status_res_code}=                      Set Variable               ${resp.status_code}                         
     Validation Http status code success 200 OK    ${http_status_res_code}
-    Validation order status text correctly              ${resp}
+    Validation order status text correctly        ${resp}
 
 TC_002_GET History detail happy case (combine order status : delivered)
     Create Session                                session                    https://api.staging.true-e-logistics.com
@@ -39,7 +39,7 @@ TC_002_GET History detail happy case (combine order status : delivered)
     log                                           ${resp.json()}             
     ${http_status_res_code}=                      Set Variable               ${resp.status_code}                         
     Validation Http status code success 200 OK    ${http_status_res_code}
-    Validation order status text correctly              ${resp}                    
+    Validation order status text correctly        ${resp}                    
 
 TC_003_GET History detail happy case (order status : Partial Delivered)
     Create Session                                session                    https://api.staging.true-e-logistics.com
@@ -48,7 +48,7 @@ TC_003_GET History detail happy case (order status : Partial Delivered)
     log                                           ${resp.json()}             
     ${http_status_res_code}=                      Set Variable               ${resp.status_code}                         
     Validation Http status code success 200 OK    ${http_status_res_code}
-    Validation order status text correctly              ${resp}                    
+    Validation order status text correctly        ${resp}                    
 
 TC_004_GET History detail unhappy case (order status : Canceled)
     Create Session                                session                    https://api.staging.true-e-logistics.com
@@ -57,7 +57,7 @@ TC_004_GET History detail unhappy case (order status : Canceled)
     log                                           ${resp.json()}             
     ${http_status_res_code}=                      Set Variable               ${resp.status_code}                         
     Validation Http status code success 200 OK    ${http_status_res_code}
-    Validation order status text incorrectly            ${resp} 
+    Validation order status text incorrectly      ${resp} 
 
 TC_005_GET History detail unhappy case (order status : Failed)
     Create Session                                session                     https://api.staging.true-e-logistics.com
@@ -66,7 +66,7 @@ TC_005_GET History detail unhappy case (order status : Failed)
     log                                           ${resp.json()}              
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                         
     Validation Http status code success 200 OK    ${http_status_res_code} 
-    Validation order status text incorrectly            ${resp} 
+    Validation order status text incorrectly      ${resp} 
 
 TC_006_GET History detail unhappy case(order status : Rejected)
     Create Session                                session                     https://api.staging.true-e-logistics.com
@@ -75,4 +75,4 @@ TC_006_GET History detail unhappy case(order status : Rejected)
     log                                           ${resp.json()}              
     ${http_status_res_code}=                      Set Variable                ${resp.status_code}                         
     Validation Http status code success 200 OK    ${http_status_res_code} 
-    Validation order status text incorrectly            ${resp} 
+    Validation order status text incorrectly      ${resp} 

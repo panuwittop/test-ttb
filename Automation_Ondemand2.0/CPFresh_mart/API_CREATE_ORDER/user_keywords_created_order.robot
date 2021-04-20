@@ -87,7 +87,7 @@ To verify random consignment number
     [Arguments]          ${json_string}
     ${json_random}=      evaluate                  json.loads('''${json_string}''')          json
     ${random_int}        Generate random string    4                                         0123456789
-    set to dictionary    ${json_random}            consignment=AUTOTEST00IN${random_int}    
+    set to dictionary    ${json_random}            consignment=TEST2701IN${random_int}    
     ${json_string}=      evaluate                  json.dumps(${json_random})                json
     [Return]             ${json_string}
 

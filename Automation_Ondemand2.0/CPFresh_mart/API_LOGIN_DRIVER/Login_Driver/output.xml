@@ -1,0 +1,1429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.4 on darwin)" generated="20210407 18:26:44.200" rpa="false">
+<suite id="s1" name="Login" source="/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/Login.robot">
+<test id="s1-t1" name="TC_0001_Login">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.162" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:45.161" endtime="20210407 18:26:45.163"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.163" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:45.163" endtime="20210407 18:26:45.163"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_001_Login.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.164" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_001_Login.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_001_Login.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:45.165" level="INFO">${json_string} = {
+    "citizenId":"1000000000001",
+    "password" : "@Test0001"
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:45.163" endtime="20210407 18:26:45.165"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.165" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId":"1000000000001",
+    "password" : "@Test0001"
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:45.330" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:45.165" endtime="20210407 18:26:45.330"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.331" level="INFO">{'data': {'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMSIsImVtYWlsIjoiIiwicGhvbmUiOiI2Njg5MDAwMDAwMSIsImlhdCI6MTYxNzc5NDgwNSwiZXhwIjoxNjE4Mzk5NjA1LCJpc3MiOiJxZVJSTFprem0ifQ.Rm2oVpPoSDKU_ZMPSiVOW_hS8eJvKi0zlD3SnM9nZiQ', 'refreshToken': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMSIsImVtYWlsIjoiIiwicGhvbmUiOiI2Njg5MDAwMDAwMSIsImlhdCI6MTYxNzc5NDgwNSwiZXhwIjoxNjE5MDA0NDA1LCJpc3MiOiJxZVJSTFprem0ifQ.pVqMirXSNDOd_ijjJjgfxvk9McUNuN2ri3wOTevANjs'}, 'status': 'OK', 'statusCodes': 200}</msg>
+<status status="PASS" starttime="20210407 18:26:45.330" endtime="20210407 18:26:45.331"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.331" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 18:26:45.331" endtime="20210407 18:26:45.331"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.344" level="FAIL">No keyword with name 'Validation Http status code success 200 OK' found. Did you mean:
+    user_keywords_login.Validation Http Status Code Success</msg>
+<status status="FAIL" starttime="20210407 18:26:45.344" endtime="20210407 18:26:45.344"></status>
+</kw>
+<status status="FAIL" starttime="20210407 18:26:45.161" endtime="20210407 18:26:45.345" critical="yes">No keyword with name 'Validation Http status code success 200 OK' found. Did you mean:
+    user_keywords_login.Validation Http Status Code Success</status>
+</test>
+<test id="s1-t2" name="TC_0002_Validation_Login_Fail">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.347" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:45.347" endtime="20210407 18:26:45.348"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.348" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:45.348" endtime="20210407 18:26:45.348"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_002_Validation _Login_fail.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.349" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_002_Validation _Login_fail.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_002_Validation _Login_fail.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:45.354" level="INFO">${json_string} = {
+    "citizenId":"1",
+    "password" : "@Test0001"
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:45.348" endtime="20210407 18:26:45.354"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.355" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId":"1",
+    "password" : "@Test0001"
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:45.469" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:45.355" endtime="20210407 18:26:45.469"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.470" level="INFO">${http_status_res_code} = 404</msg>
+<status status="PASS" starttime="20210407 18:26:45.470" endtime="20210407 18:26:45.470"></status>
+</kw>
+<kw name="Validation status code 404 Bad request">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.481" level="FAIL">No keyword with name 'Validation status code 404 Bad request' found.</msg>
+<status status="FAIL" starttime="20210407 18:26:45.481" endtime="20210407 18:26:45.481"></status>
+</kw>
+<status status="FAIL" starttime="20210407 18:26:45.345" endtime="20210407 18:26:45.482" critical="yes">No keyword with name 'Validation status code 404 Bad request' found.</status>
+</test>
+<test id="s1-t3" name="TC_0003_Validation Test with valid username empty password such that login must get fail">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.483" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:45.483" endtime="20210407 18:26:45.483"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.484" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:45.484" endtime="20210407 18:26:45.485"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_003_Validation _username_empty.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.485" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_003_Validation _username_empty.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_003_Validation _username_empty.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:45.487" level="INFO">${json_string} = {
+    "citizenId":"",
+    "password" : "Test0001"
+
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:45.485" endtime="20210407 18:26:45.487"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.488" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId":"",
+    "password" : "Test0001"
+
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:45.590" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:45.487" endtime="20210407 18:26:45.590"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.591" level="INFO">${http_status_res_code} = 404</msg>
+<status status="PASS" starttime="20210407 18:26:45.590" endtime="20210407 18:26:45.591"></status>
+</kw>
+<kw name="Validation status code 404 Bad request">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.623" level="FAIL">No keyword with name 'Validation status code 404 Bad request' found.</msg>
+<status status="FAIL" starttime="20210407 18:26:45.623" endtime="20210407 18:26:45.623"></status>
+</kw>
+<status status="FAIL" starttime="20210407 18:26:45.482" endtime="20210407 18:26:45.625" critical="yes">No keyword with name 'Validation status code 404 Bad request' found.</status>
+</test>
+<test id="s1-t4" name="TC_004_Validation _Password_empty">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.634" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:45.634" endtime="20210407 18:26:45.635"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.636" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:45.635" endtime="20210407 18:26:45.636"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_004_Validation _Password_empty.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.637" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_004_Validation _Password_empty.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_004_Validation _Password_empty.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:45.639" level="INFO">${json_string} = {
+    "citizenId":"1000000000001",
+    "password" : ""
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:45.637" endtime="20210407 18:26:45.639"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.641" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId":"1000000000001",
+    "password" : ""
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:45.754" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:45.639" endtime="20210407 18:26:45.754"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.754" level="INFO">${http_status_res_code} = 404</msg>
+<status status="PASS" starttime="20210407 18:26:45.754" endtime="20210407 18:26:45.754"></status>
+</kw>
+<kw name="Validation status code 404 Bad request">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.770" level="FAIL">No keyword with name 'Validation status code 404 Bad request' found.</msg>
+<status status="FAIL" starttime="20210407 18:26:45.770" endtime="20210407 18:26:45.770"></status>
+</kw>
+<status status="FAIL" starttime="20210407 18:26:45.629" endtime="20210407 18:26:45.770" critical="yes">No keyword with name 'Validation status code 404 Bad request' found.</status>
+</test>
+<test id="s1-t5" name="TC_005_Validation_Empty_username_and_empty_password">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.772" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:45.772" endtime="20210407 18:26:45.773"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.773" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:45.773" endtime="20210407 18:26:45.773"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_005_Validation_Empty_username_and_empty_password.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.774" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_005_Validation_Empty_username_and_empty_password.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_005_Validation_Empty_username_and_empty_password.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:45.775" level="INFO">${json_string} = {
+    "citizenId":"",
+    "password" : ""
+
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:45.774" endtime="20210407 18:26:45.775"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.776" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId":"",
+    "password" : ""
+
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:45.895" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:45.775" endtime="20210407 18:26:45.895"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.897" level="INFO">${http_status_res_code} = 404</msg>
+<status status="PASS" starttime="20210407 18:26:45.896" endtime="20210407 18:26:45.897"></status>
+</kw>
+<kw name="Validation status code 404 Bad request">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.911" level="FAIL">No keyword with name 'Validation status code 404 Bad request' found.</msg>
+<status status="FAIL" starttime="20210407 18:26:45.911" endtime="20210407 18:26:45.911"></status>
+</kw>
+<status status="FAIL" starttime="20210407 18:26:45.771" endtime="20210407 18:26:45.911" critical="yes">No keyword with name 'Validation status code 404 Bad request' found.</status>
+</test>
+<test id="s1-t6" name="TC_006_Validation_Verify_character_limit">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:45.913" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:45.913" endtime="20210407 18:26:45.914"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.914" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:45.914" endtime="20210407 18:26:45.914"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_006_Validation_Verify_character_limit.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.915" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_006_Validation_Verify_character_limit.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_006_Validation_Verify_character_limit.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:45.916" level="INFO">${json_string} = {
+    "citizenId": "10000000000100000000000000000000",
+    "Password":  "@Test000100000000000000"
+
+}
+
+</msg>
+<status status="PASS" starttime="20210407 18:26:45.914" endtime="20210407 18:26:45.917"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:45.921" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId": "10000000000100000000000000000000",
+    "Password":  "@Test000100000000000000"
+
+}
+
+ 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.005" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:45.919" endtime="20210407 18:26:46.005"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.007" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.006" endtime="20210407 18:26:46.007"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.008" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.008" endtime="20210407 18:26:46.008"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.008" endtime="20210407 18:26:46.009"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.007" endtime="20210407 18:26:46.009"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:45.912" endtime="20210407 18:26:46.009" critical="yes"></status>
+</test>
+<test id="s1-t7" name="TC_007_Validation_Handles_case_sensitive">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.010" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.010" endtime="20210407 18:26:46.011"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.011" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.011" endtime="20210407 18:26:46.011"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_007_Validation_Handles_case_sensitive.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.012" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_007_Validation_Handles_case_sensitive.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_007_Validation_Handles_case_sensitive.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.013" level="INFO">${json_string} = {
+"citizenId": "100000000001",
+"Password":  "@TEST0001"
+}</msg>
+<status status="PASS" starttime="20210407 18:26:46.012" endtime="20210407 18:26:46.013"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.015" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+"citizenId": "100000000001",
+"Password":  "@TEST0001"
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.100" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.014" endtime="20210407 18:26:46.101"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.102" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.101" endtime="20210407 18:26:46.102"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.103" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.102" endtime="20210407 18:26:46.103"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.103" endtime="20210407 18:26:46.103"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.102" endtime="20210407 18:26:46.103"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.010" endtime="20210407 18:26:46.103" critical="yes"></status>
+</test>
+<test id="s1-t8" name="TC_008_Validation_Enter_Username_in_characters">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.105" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.104" endtime="20210407 18:26:46.105"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.106" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.106" endtime="20210407 18:26:46.106"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_008_Validation_Enter_Username_in_characters.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.107" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_008_Validation_Enter_Username_in_characters.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_008_Validation_Enter_Username_in_characters.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.107" level="INFO">${json_string} = {
+    "citizenId": "GGGG",
+    "Password":  "@Test0001"
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:46.106" endtime="20210407 18:26:46.107"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.109" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId": "GGGG",
+    "Password":  "@Test0001"
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.199" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.108" endtime="20210407 18:26:46.199"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.200" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.199" endtime="20210407 18:26:46.200"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.202" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.201" endtime="20210407 18:26:46.202"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.202" endtime="20210407 18:26:46.203"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.200" endtime="20210407 18:26:46.203"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.104" endtime="20210407 18:26:46.203" critical="yes"></status>
+</test>
+<test id="s1-t9" name="TC_009_Validation_Enter Username_in_special_characters">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.205" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.204" endtime="20210407 18:26:46.205"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.206" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.206" endtime="20210407 18:26:46.207"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_009_Validation_Enter Username_in_special_characters.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.208" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_009_Validation_Enter Username_in_special_characters.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_009_Validation_Enter Username_in_special_characters.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.210" level="INFO">${json_string} = {
+    "citizenId " : "&amp;%$&amp;",
+     "Password" : "@Test0001"
+     
+     }</msg>
+<status status="PASS" starttime="20210407 18:26:46.207" endtime="20210407 18:26:46.210"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.211" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId " : "&amp;%$&amp;",
+     "Password" : "@Test0001"
+     
+     } 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.301" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.210" endtime="20210407 18:26:46.301"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.302" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.301" endtime="20210407 18:26:46.302"></status>
+</kw>
+<kw name="Validation data should have required property citizenId and password" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.304" level="INFO">${ResMessage} = data should have required property 'citizenId', data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.303" endtime="20210407 18:26:46.304"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'citizenId', data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.305" endtime="20210407 18:26:46.305"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.303" endtime="20210407 18:26:46.305"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.204" endtime="20210407 18:26:46.306" critical="yes"></status>
+</test>
+<test id="s1-t10" name="TC_010_Validation_Enter_Password_in_characters">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.307" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.307" endtime="20210407 18:26:46.308"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.308" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.308" endtime="20210407 18:26:46.308"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_010_Validation_Enter_Password_in_characters.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.342" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_010_Validation_Enter_Password_in_characters.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_010_Validation_Enter_Password_in_characters.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.345" level="INFO">${json_string} = {
+    "citizenId"  : "100000000001" ,
+     "Password" : "jsasd"
+}
+    
+     </msg>
+<status status="PASS" starttime="20210407 18:26:46.309" endtime="20210407 18:26:46.345"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.347" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId"  : "100000000001" ,
+     "Password" : "jsasd"
+}
+    
+      
+json=None</msg>
+<msg timestamp="20210407 18:26:46.441" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.345" endtime="20210407 18:26:46.441"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.442" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.441" endtime="20210407 18:26:46.442"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.445" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.444" endtime="20210407 18:26:46.445"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.445" endtime="20210407 18:26:46.445"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.442" endtime="20210407 18:26:46.446"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.306" endtime="20210407 18:26:46.446" critical="yes"></status>
+</test>
+<test id="s1-t11" name="TC_011_Validation_Enter_Password_in_special_characters">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.447" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.447" endtime="20210407 18:26:46.448"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.451" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.449" endtime="20210407 18:26:46.451"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_011_Validation_Enter_Password_in_special_characters.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.452" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_011_Validation_Enter_Password_in_special_characters.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_011_Validation_Enter_Password_in_special_characters.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.453" level="INFO">${json_string} = {
+    "citizenId"  : "100000000001" ,
+    "Password" : "$#%&amp;("
+    
+     }
+    </msg>
+<status status="PASS" starttime="20210407 18:26:46.451" endtime="20210407 18:26:46.453"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.454" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId"  : "100000000001" ,
+    "Password" : "$#%&amp;("
+    
+     }
+     
+json=None</msg>
+<msg timestamp="20210407 18:26:46.535" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.453" endtime="20210407 18:26:46.536"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.537" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.536" endtime="20210407 18:26:46.537"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.539" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.538" endtime="20210407 18:26:46.539"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.539" endtime="20210407 18:26:46.539"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.537" endtime="20210407 18:26:46.540"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.446" endtime="20210407 18:26:46.540" critical="yes"></status>
+</test>
+<test id="s1-t12" name="TC_012_Validation_Verify_type_Username_type_int">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.541" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.541" endtime="20210407 18:26:46.542"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.543" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.542" endtime="20210407 18:26:46.543"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_012_Validation_Verify_type_Username_type_int.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.544" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_012_Validation_Verify_type_Username_type_int.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_012_Validation_Verify_type_Username_type_int.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.547" level="INFO">${json_string} = {
+    "citizenId" : 100000000001,
+    "Password" :  "@Test0001"
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:46.543" endtime="20210407 18:26:46.547"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.548" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId" : 100000000001,
+    "Password" :  "@Test0001"
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.633" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.548" endtime="20210407 18:26:46.633"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.634" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.633" endtime="20210407 18:26:46.634"></status>
+</kw>
+<kw name="data/citizenId should be string, data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.635" level="INFO">${ResMessage} = data/citizenId should be string, data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.634" endtime="20210407 18:26:46.635"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data/citizenId should be string, data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.635" endtime="20210407 18:26:46.636"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.634" endtime="20210407 18:26:46.636"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.540" endtime="20210407 18:26:46.636" critical="yes"></status>
+</test>
+<test id="s1-t13" name="TC_013_Validation_Verify_type_double">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.639" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.638" endtime="20210407 18:26:46.640"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.642" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.641" endtime="20210407 18:26:46.642"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_013_Validation_Verify_type_double.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.644" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_013_Validation_Verify_type_double.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_013_Validation_Verify_type_double.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.646" level="INFO">${json_string} = {
+    "citizenId" : 100000000001.00,
+    "Password" :  "@Test0001"
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:46.643" endtime="20210407 18:26:46.646"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.647" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId" : 100000000001.00,
+    "Password" :  "@Test0001"
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.733" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.647" endtime="20210407 18:26:46.733"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.734" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.734" endtime="20210407 18:26:46.734"></status>
+</kw>
+<kw name="data/citizenId should be string, data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.736" level="INFO">${ResMessage} = data/citizenId should be string, data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.735" endtime="20210407 18:26:46.736"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data/citizenId should be string, data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.736" endtime="20210407 18:26:46.737"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.734" endtime="20210407 18:26:46.737"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.637" endtime="20210407 18:26:46.737" critical="yes"></status>
+</test>
+<test id="s1-t14" name="TC_014_Validation_Verify_type_Password_type_int">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.739" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.738" endtime="20210407 18:26:46.739"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.740" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.739" endtime="20210407 18:26:46.740"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_014_Validation_Verify_type_Password_type_int.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.741" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_014_Validation_Verify_type_Password_type_int.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_014_Validation_Verify_type_Password_type_int.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.744" level="INFO">${json_string} = {
+    "citizenId" : "100000000001",
+    "Password" : 1
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:46.740" endtime="20210407 18:26:46.744"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.745" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId" : "100000000001",
+    "Password" : 1
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.828" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.745" endtime="20210407 18:26:46.828"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.829" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.828" endtime="20210407 18:26:46.829"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.830" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.829" endtime="20210407 18:26:46.830"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.830" endtime="20210407 18:26:46.830"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.829" endtime="20210407 18:26:46.830"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.738" endtime="20210407 18:26:46.831" critical="yes"></status>
+</test>
+<test id="s1-t15" name="TC_015_Validation_Verify_type_Password_type_doble">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host_1}</arg>
+</arguments>
+<msg timestamp="20210407 18:26:46.832" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 18:26:46.832" endtime="20210407 18:26:46.833"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${Content-Type}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.833" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20210407 18:26:46.833" endtime="20210407 18:26:46.833"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_015_Validation_Verify_type_Password_type_doble.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.834" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_015_Validation_Verify_type_Password_type_doble.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Login_driver/Login_Driver/TC_015_Validation_Verify_type_Password_type_doble.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 18:26:46.837" level="INFO">${json_string} = {
+    "citizenId" : "100000000001",
+    "Password" : 1.00
+
+}</msg>
+<status status="PASS" starttime="20210407 18:26:46.834" endtime="20210407 18:26:46.837"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path_1}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.838" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={
+    "citizenId" : "100000000001",
+    "Password" : 1.00
+
+} 
+json=None</msg>
+<msg timestamp="20210407 18:26:46.917" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 18:26:46.837" endtime="20210407 18:26:46.917"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.918" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 18:26:46.918" endtime="20210407 18:26:46.918"></status>
+</kw>
+<kw name="Validation data should have required property 'password'" library="user_keywords_login">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 18:26:46.921" level="INFO">${ResMessage} = data should have required property 'password'</msg>
+<status status="PASS" starttime="20210407 18:26:46.920" endtime="20210407 18:26:46.921"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>data should have required property 'password'</arg>
+</arguments>
+<status status="PASS" starttime="20210407 18:26:46.921" endtime="20210407 18:26:46.922"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.919" endtime="20210407 18:26:46.922"></status>
+</kw>
+<status status="PASS" starttime="20210407 18:26:46.831" endtime="20210407 18:26:46.922" critical="yes"></status>
+</test>
+<status status="FAIL" starttime="20210407 18:26:44.202" endtime="20210407 18:26:46.923"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="10" fail="5">Critical Tests</stat>
+<stat pass="10" fail="5">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="10" fail="5" id="s1" name="Login">Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

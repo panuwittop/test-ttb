@@ -110,7 +110,7 @@ TC_0009_Driver Validation OTP when path environment incorect
 
 
 
-# TC_00010_Driver_Validation_OTP time out
+# TC_00010_Driver Validation OTP time out
 #    Create Session                                          session                    https://api.staging.true-e-logistics.com
 #    ${headers}=                                             Create Dictionary          Content-Type=${Content-Type}                language=TH
 #    ${json_string}                                          Get File                   TC_0001_Validation_OTP_success.json 

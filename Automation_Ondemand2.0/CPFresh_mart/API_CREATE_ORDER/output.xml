@@ -1,0 +1,2530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.4 on darwin)" generated="20210407 17:48:45.367" rpa="false">
+<suite id="s1" name="API Create order" source="/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/API_Create_order.robot">
+<test id="s1-t1" name="Setting Selenium Options">
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:46.108" endtime="20210407 17:48:46.109"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="Selenium2Library">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>60</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:46.109" endtime="20210407 17:48:46.110"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.107" endtime="20210407 17:48:46.110" critical="yes"></status>
+</test>
+<test id="s1-t2" name="TC_0001_Customer_Create_Order">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.112" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:46.112" endtime="20210407 17:48:46.113"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.114" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:46.114" endtime="20210407 17:48:46.114"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0001_Customer_Create_Order.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.116" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0001_Customer_Create_Order.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0001_Customer_Create_Order.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:46.118" level="INFO">${json_string} = {
+    "consignment": "TOP06052020IN001",
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวิน...</msg>
+<status status="PASS" starttime="20210407 17:48:46.115" endtime="20210407 17:48:46.118"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${json_string}</arg>
+</arguments>
+<assign>
+<var>${new_json_string}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.119" level="INFO">${json_random} = {'consignment': 'TOP06052020IN001', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหาน...</msg>
+<status status="PASS" starttime="20210407 17:48:46.119" endtime="20210407 17:48:46.119"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.120" level="INFO">${random_int} = 3577</msg>
+<status status="PASS" starttime="20210407 17:48:46.119" endtime="20210407 17:48:46.120"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:46.120" endtime="20210407 17:48:46.120"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.121" level="INFO">${json_string} = {"consignment": "TEST2701IN3577", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:46.120" endtime="20210407 17:48:46.121"></status>
+</kw>
+<msg timestamp="20210407 17:48:46.121" level="INFO">${new_json_string} = {"consignment": "TEST2701IN3577", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:46.118" endtime="20210407 17:48:46.121"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${new_json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.122" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={"consignment": "TEST2701IN3577", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e2a\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23 10400", "lat": 13.6855281, "lng": 100.6110932, "note": "TOPTEST RUN AUTOMATION", "pickUpAt": {"start": "2020-06-08T03:00:46.414Z"}}, "recipients": [{"name": "\u0e19\u0e32\u0e07\u0e2a\u0e32\u0e27 \u0e2a\u0e38\u0e20\u0e32\u0e23\u0e31\u0e15\u0e19\u0e4c \u0e41\u0e0b\u0e48\u0e41\u0e14\u0e07", "phone": "0873842085", "address": "35 \u0e0b.\u0e27\u0e34\u0e20\u0e32\u0e27\u0e14\u0e35\u0e23\u0e31\u0e07\u0e2a\u0e34\u0e15 16/19 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07  \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e2f", "postcode": "10400", "lat": 13.78934754409814, "lng": 100.56285178053224, "note": "Order from web b2b.", "parcels": [{"productId": "1.00000000", "sku": "000000000023022700", "name": "\u0e1b\u0e35\u0e01\u0e44\u0e01\u0e48\u0e2d\u0e1a\u0e23\u0e21\u0e04\u0e27\u0e31\u0e19(SCW-220GM)", "weight": 220, "price": 48, "dimension": {"width": 10, "height": 10, "length": 5}}], "payment": {"method": "CASH", "amount": 120}}]} 
+json=None</msg>
+<msg timestamp="20210407 17:48:46.524" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:46.524" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:46.122" endtime="20210407 17:48:46.524"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.525" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:46.525" endtime="20210407 17:48:46.525"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.526" level="INFO">{'status': 'OK', 'statusCode': 200, 'success': True, 'error': None}</msg>
+<status status="PASS" starttime="20210407 17:48:46.526" endtime="20210407 17:48:46.526"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.528" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:46.527" endtime="20210407 17:48:46.528"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.526" endtime="20210407 17:48:46.528"></status>
+</kw>
+<kw name="To verify create order success" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.532" level="INFO">${ResMessage} = OK</msg>
+<status status="PASS" starttime="20210407 17:48:46.531" endtime="20210407 17:48:46.532"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>OK</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:46.532" endtime="20210407 17:48:46.533"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.530" endtime="20210407 17:48:46.533"></status>
+</kw>
+<kw name="Validation field success equal true" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.534" level="INFO">${ResMessage} = True</msg>
+<status status="PASS" starttime="20210407 17:48:46.534" endtime="20210407 17:48:46.534"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.534" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:46.534" endtime="20210407 17:48:46.535"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.533" endtime="20210407 17:48:46.535"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${json_string}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.535" level="INFO">${json_string} = {
+    "consignment": "TOP06052020IN001",
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวิน...</msg>
+<status status="PASS" starttime="20210407 17:48:46.535" endtime="20210407 17:48:46.538"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${new_json_string}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.539" level="INFO">${new_json_string} = {"consignment": "TEST2701IN3577", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:46.538" endtime="20210407 17:48:46.539"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.111" endtime="20210407 17:48:46.540" critical="yes"></status>
+</test>
+<test id="s1-t3" name="TC_0002_Customer_Create_Order_Duplicate consignment">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.541" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:46.541" endtime="20210407 17:48:46.541"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.542" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:46.542" endtime="20210407 17:48:46.542"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0002_Customer_Create_Order_Duplicate.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.543" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0002_Customer_Create_Order_Duplicate.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0002_Customer_Create_Order_Duplicate.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:46.545" level="INFO">${json_string} = {
+    "consignment": "TOPTEST0000004",
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจ...</msg>
+<status status="PASS" starttime="20210407 17:48:46.543" endtime="20210407 17:48:46.545"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.546" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "consignment": "TOPTEST0000004",
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "TOPTEST RUN AUTOMATION",
+        "pickUpAt": {
+            "start": "2020-11-03T03:00:46.414Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "นางสาว สุภารัตน์ แซ่แดง",
+            "phone": "0873842085",
+            "address": "35 ซ.วิภาวดีรังสิต 16/19 แขวงดินแดง  เขตดินแดง กรุงเทพฯ",
+            "postcode": "10400",
+            "lat": 13.78934754409814,
+            "lng": 100.56285178053224,
+            "note": "TOPTEST RUN AUTOMATION",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023022700",
+                    "name": "ปีกไก่อบรมควัน(SCW-220GM)",
+                    "weight": 220,
+                    "price": 48,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 120
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:46.899" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:46.899" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:46.546" endtime="20210407 17:48:46.900"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.901" level="INFO">{'success': False, 'data': None, 'error': {'message': 'consignment TOPTEST0000004 is duplicate'}}</msg>
+<status status="PASS" starttime="20210407 17:48:46.900" endtime="20210407 17:48:46.901"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.901" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 17:48:46.901" endtime="20210407 17:48:46.901"></status>
+</kw>
+<kw name="Validation Http status code 400 Bad request" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>400</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.902" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:46.902" endtime="20210407 17:48:46.902"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.901" endtime="20210407 17:48:46.902"></status>
+</kw>
+<kw name="To verify create order Duplicate consignment" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.904" level="INFO">${ResMessage} = consignment TOPTEST0000004 is duplicate</msg>
+<status status="PASS" starttime="20210407 17:48:46.903" endtime="20210407 17:48:46.904"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>consignment TOPTEST0000004 is duplicate</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:46.904" endtime="20210407 17:48:46.905"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.903" endtime="20210407 17:48:46.905"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.540" endtime="20210407 17:48:46.905" critical="yes"></status>
+</test>
+<test id="s1-t4" name="TC_0003_Customer_Create_Order_access token if invalid">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:46.906" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:46.906" endtime="20210407 17:48:46.906"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=xxxx</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.907" level="INFO">${headers} = {'apiKey': 'xxxx', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:46.906" endtime="20210407 17:48:46.907"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:46.908" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'xxxx', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "consignment": "TOP06052020IN001",
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "TOPTEST RUN AUTOMATION",
+        "pickUpAt": {
+            "start": "2020-06-08T03:00:46.414Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "นางสาว สุภารัตน์ แซ่แดง",
+            "phone": "0873842085",
+            "address": "35 ซ.วิภาวดีรังสิต 16/19 แขวงดินแดง  เขตดินแดง กรุงเทพฯ",
+            "postcode": "10400",
+            "lat": 13.78934754409814,
+            "lng": 100.56285178053224,
+            "note": "Order from web b2b.",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023022700",
+                    "name": "ปีกไก่อบรมควัน(SCW-220GM)",
+                    "weight": 220,
+                    "price": 48,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 120
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:47.082" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:47.083" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:46.907" endtime="20210407 17:48:47.083"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.084" level="INFO">{'message': 'Invalid authentication credentials'}</msg>
+<status status="PASS" starttime="20210407 17:48:47.084" endtime="20210407 17:48:47.084"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.085" level="INFO">${http_status_res_code} = 401</msg>
+<status status="PASS" starttime="20210407 17:48:47.085" endtime="20210407 17:48:47.085"></status>
+</kw>
+<kw name="Validation Http status code 401 access token if invalid" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>401</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.086" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.086" endtime="20210407 17:48:47.086"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.085" endtime="20210407 17:48:47.086"></status>
+</kw>
+<kw name="To verify create order access token if invalid" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.087" level="INFO">${ResMessage} = Invalid authentication credentials</msg>
+<status status="PASS" starttime="20210407 17:48:47.087" endtime="20210407 17:48:47.087"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>Invalid authentication credentials</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:47.087" endtime="20210407 17:48:47.088"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.087" endtime="20210407 17:48:47.088"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:46.905" endtime="20210407 17:48:47.089" critical="yes"></status>
+</test>
+<test id="s1-t5" name="TC_0006_Customer_Create_Order_data not found">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.091" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:47.091" endtime="20210407 17:48:47.092"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.092" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:47.092" endtime="20210407 17:48:47.092"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/orderx/xxx</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.093" level="INFO">POST Request using : uri=/v1/orderx/xxx, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "consignment": "TOP06052020IN001",
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "TOPTEST RUN AUTOMATION",
+        "pickUpAt": {
+            "start": "2020-06-08T03:00:46.414Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "นางสาว สุภารัตน์ แซ่แดง",
+            "phone": "0873842085",
+            "address": "35 ซ.วิภาวดีรังสิต 16/19 แขวงดินแดง  เขตดินแดง กรุงเทพฯ",
+            "postcode": "10400",
+            "lat": 13.78934754409814,
+            "lng": 100.56285178053224,
+            "note": "Order from web b2b.",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023022700",
+                    "name": "ปีกไก่อบรมควัน(SCW-220GM)",
+                    "weight": 220,
+                    "price": 48,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 120
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:47.260" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:47.260" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.093" endtime="20210407 17:48:47.260"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.261" level="INFO">{'success': False, 'data': None, 'error': {'message': '/v1/orderx/xxx not found'}}</msg>
+<status status="PASS" starttime="20210407 17:48:47.261" endtime="20210407 17:48:47.261"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.262" level="INFO">${http_status_res_code} = 404</msg>
+<status status="PASS" starttime="20210407 17:48:47.262" endtime="20210407 17:48:47.262"></status>
+</kw>
+<kw name="Validation Http status code 404 NOT FOUND" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>404</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.264" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.264" endtime="20210407 17:48:47.264"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.263" endtime="20210407 17:48:47.265"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.089" endtime="20210407 17:48:47.265" critical="yes"></status>
+</test>
+<test id="s1-t6" name="TC_0007_Customer_required field consignment">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.270" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:47.269" endtime="20210407 17:48:47.271"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.272" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:47.271" endtime="20210407 17:48:47.272"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0007_Customer_required field consignment.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.273" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0007_Customer_required field consignment.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0007_Customer_required field consignment.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:47.280" level="INFO">${json_string} = {
+   
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพม...</msg>
+<status status="PASS" starttime="20210407 17:48:47.272" endtime="20210407 17:48:47.280"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.282" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+   
+    "orderType": 1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "TOPTEST RUN AUTOMATION",
+        "pickUpAt": {
+            "start": "2020-11-03T03:00:46.414Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "นางสาว สุภารัตน์ แซ่แดง",
+            "phone": "0873842085",
+            "address": "35 ซ.วิภาวดีรังสิต 16/19 แขวงดินแดง  เขตดินแดง กรุงเทพฯ",
+            "postcode": "10400",
+            "lat": 13.78934754409814,
+            "lng": 100.56285178053224,
+            "note": "TOPTEST RUN AUTOMATION",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023022700",
+                    "name": "ปีกไก่อบรมควัน(SCW-220GM)",
+                    "weight": 220,
+                    "price": 48,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 120
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:47.494" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:47.494" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.281" endtime="20210407 17:48:47.494"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.495" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 17:48:47.495" endtime="20210407 17:48:47.496"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.497" level="INFO">{'success': False, 'data': None, 'errors': ['consignment must be a string', 'consignment should not be empty'], 'error': {'message': "Invalid body, check 'errors' property for more info."}}</msg>
+<status status="PASS" starttime="20210407 17:48:47.496" endtime="20210407 17:48:47.497"></status>
+</kw>
+<kw name="Validation Http status code 400 Bad request" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>400</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.502" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.502" endtime="20210407 17:48:47.502"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.498" endtime="20210407 17:48:47.502"></status>
+</kw>
+<kw name="Validation field success equal false" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.504" level="INFO">${ResMessage} = False</msg>
+<status status="PASS" starttime="20210407 17:48:47.503" endtime="20210407 17:48:47.504"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>False</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.504" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.504" endtime="20210407 17:48:47.505"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.503" endtime="20210407 17:48:47.505"></status>
+</kw>
+<kw name="To verify create order required field" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>errors</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.506" level="INFO">${ResMessage} = ['consignment must be a string', 'consignment should not be empty']</msg>
+<status status="PASS" starttime="20210407 17:48:47.505" endtime="20210407 17:48:47.506"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage[1]}</arg>
+<arg>consignment should not be empty</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:47.506" endtime="20210407 17:48:47.506"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.505" endtime="20210407 17:48:47.506"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.268" endtime="20210407 17:48:47.506" critical="yes"></status>
+</test>
+<test id="s1-t7" name="TC_0008_Customer_required 2 field consignment">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.507" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:47.507" endtime="20210407 17:48:47.508"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.522" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:47.508" endtime="20210407 17:48:47.522"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0008_Customer_required 2 field consignment.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.523" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0008_Customer_required 2 field consignment.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0008_Customer_required 2 field consignment.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:47.526" level="INFO">${json_string} = {
+  
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+       ...</msg>
+<status status="PASS" starttime="20210407 17:48:47.523" endtime="20210407 17:48:47.526"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.527" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+  
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+       "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "TOPTEST RUN AUTOMATION",
+        "pickUpAt": {
+            "start": "2020-11-03T03:00:46.414Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "นางสาว สุภารัตน์ แซ่แดง",
+            "phone": "0873842085",
+            "address": "35 ซ.วิภาวดีรังสิต 16/19 แขวงดินแดง  เขตดินแดง กรุงเทพฯ",
+            "postcode": "10400",
+            "lat": 13.78934754409814,
+            "lng": 100.56285178053224,
+            "note": "TOPTEST RUN AUTOMATION",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023022700",
+                    "name": "ปีกไก่อบรมควัน(SCW-220GM)",
+                    "weight": 220,
+                    "price": 48,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 120
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:47.701" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:47.701" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.526" endtime="20210407 17:48:47.701"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.702" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 17:48:47.701" endtime="20210407 17:48:47.702"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.703" level="INFO">{'success': False, 'data': None, 'errors': ['consignment must be a string', 'consignment should not be empty', 'orderType must be an integer number', 'orderType should not be empty'], 'error': {'message': "Invalid body, check 'errors' property for more info."}}</msg>
+<status status="PASS" starttime="20210407 17:48:47.702" endtime="20210407 17:48:47.703"></status>
+</kw>
+<kw name="Validation Http status code 400 Bad request" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>400</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.704" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.704" endtime="20210407 17:48:47.704"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.703" endtime="20210407 17:48:47.705"></status>
+</kw>
+<kw name="Validation field success equal false" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.706" level="INFO">${ResMessage} = False</msg>
+<status status="PASS" starttime="20210407 17:48:47.705" endtime="20210407 17:48:47.706"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>False</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.706" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.706" endtime="20210407 17:48:47.708"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.705" endtime="20210407 17:48:47.708"></status>
+</kw>
+<kw name="To verify create order required 2 field" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.710" level="INFO">${ResMessage} = Invalid body, check 'errors' property for more info.</msg>
+<status status="PASS" starttime="20210407 17:48:47.709" endtime="20210407 17:48:47.710"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>Invalid body, check 'errors' property for more info.</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:47.710" endtime="20210407 17:48:47.710"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.708" endtime="20210407 17:48:47.711"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.507" endtime="20210407 17:48:47.711" critical="yes"></status>
+</test>
+<test id="s1-t8" name="TC_0009_ Customer_Add note sender and recipient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:47.712" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:47.711" endtime="20210407 17:48:47.713"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.715" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:47.714" endtime="20210407 17:48:47.715"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${json_string}</arg>
+</arguments>
+<assign>
+<var>${new_json_string}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.716" level="INFO">${json_random} = {'consignment': 'TOP06052020IN001', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหาน...</msg>
+<status status="PASS" starttime="20210407 17:48:47.716" endtime="20210407 17:48:47.716"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.718" level="INFO">${random_int} = 6079</msg>
+<status status="PASS" starttime="20210407 17:48:47.717" endtime="20210407 17:48:47.718"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:47.718" endtime="20210407 17:48:47.719"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.722" level="INFO">${json_string} = {"consignment": "TEST2701IN6079", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:47.719" endtime="20210407 17:48:47.722"></status>
+</kw>
+<msg timestamp="20210407 17:48:47.722" level="INFO">${new_json_string} = {"consignment": "TEST2701IN6079", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:47.715" endtime="20210407 17:48:47.722"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${new_json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:47.725" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={"consignment": "TEST2701IN6079", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e2a\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23 10400", "lat": 13.6855281, "lng": 100.6110932, "note": "TOPTEST RUN AUTOMATION", "pickUpAt": {"start": "2020-06-08T03:00:46.414Z"}}, "recipients": [{"name": "\u0e19\u0e32\u0e07\u0e2a\u0e32\u0e27 \u0e2a\u0e38\u0e20\u0e32\u0e23\u0e31\u0e15\u0e19\u0e4c \u0e41\u0e0b\u0e48\u0e41\u0e14\u0e07", "phone": "0873842085", "address": "35 \u0e0b.\u0e27\u0e34\u0e20\u0e32\u0e27\u0e14\u0e35\u0e23\u0e31\u0e07\u0e2a\u0e34\u0e15 16/19 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07  \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e2f", "postcode": "10400", "lat": 13.78934754409814, "lng": 100.56285178053224, "note": "Order from web b2b.", "parcels": [{"productId": "1.00000000", "sku": "000000000023022700", "name": "\u0e1b\u0e35\u0e01\u0e44\u0e01\u0e48\u0e2d\u0e1a\u0e23\u0e21\u0e04\u0e27\u0e31\u0e19(SCW-220GM)", "weight": 220, "price": 48, "dimension": {"width": 10, "height": 10, "length": 5}}], "payment": {"method": "CASH", "amount": 120}}]} 
+json=None</msg>
+<msg timestamp="20210407 17:48:48.090" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:48.090" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:47.723" endtime="20210407 17:48:48.090"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.091" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:48.091" endtime="20210407 17:48:48.091"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.092" level="INFO">{'status': 'OK', 'statusCode': 200, 'success': True, 'error': None}</msg>
+<status status="PASS" starttime="20210407 17:48:48.092" endtime="20210407 17:48:48.092"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.093" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.093" endtime="20210407 17:48:48.093"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.092" endtime="20210407 17:48:48.094"></status>
+</kw>
+<kw name="Validation field success equal true" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.095" level="INFO">${ResMessage} = True</msg>
+<status status="PASS" starttime="20210407 17:48:48.094" endtime="20210407 17:48:48.095"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.095" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.095" endtime="20210407 17:48:48.095"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.094" endtime="20210407 17:48:48.096"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:47.711" endtime="20210407 17:48:48.096" critical="yes"></status>
+</test>
+<test id="s1-t9" name="TC_0010_ Customer_Chcek lat and lng sender and recipient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.098" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:48.097" endtime="20210407 17:48:48.098"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.099" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:48.098" endtime="20210407 17:48:48.099"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${json_string}</arg>
+</arguments>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.100" level="INFO">${json_random} = {'consignment': 'TOP06052020IN001', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหาน...</msg>
+<status status="PASS" starttime="20210407 17:48:48.099" endtime="20210407 17:48:48.100"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.101" level="INFO">${random_int} = 2781</msg>
+<status status="PASS" starttime="20210407 17:48:48.100" endtime="20210407 17:48:48.101"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:48.101" endtime="20210407 17:48:48.101"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.102" level="INFO">${json_string} = {"consignment": "TEST2701IN2781", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.101" endtime="20210407 17:48:48.102"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.099" endtime="20210407 17:48:48.102"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${json_string}</arg>
+</arguments>
+<assign>
+<var>${new_json_string}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.103" level="INFO">${json_random} = {'consignment': 'TOP06052020IN001', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหาน...</msg>
+<status status="PASS" starttime="20210407 17:48:48.103" endtime="20210407 17:48:48.103"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.104" level="INFO">${random_int} = 8096</msg>
+<status status="PASS" starttime="20210407 17:48:48.103" endtime="20210407 17:48:48.104"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:48.104" endtime="20210407 17:48:48.104"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.105" level="INFO">${json_string} = {"consignment": "TEST2701IN8096", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.104" endtime="20210407 17:48:48.105"></status>
+</kw>
+<msg timestamp="20210407 17:48:48.105" level="INFO">${new_json_string} = {"consignment": "TEST2701IN8096", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.102" endtime="20210407 17:48:48.105"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${new_json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.106" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={"consignment": "TEST2701IN8096", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e2a\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23 10400", "lat": 13.6855281, "lng": 100.6110932, "note": "TOPTEST RUN AUTOMATION", "pickUpAt": {"start": "2020-06-08T03:00:46.414Z"}}, "recipients": [{"name": "\u0e19\u0e32\u0e07\u0e2a\u0e32\u0e27 \u0e2a\u0e38\u0e20\u0e32\u0e23\u0e31\u0e15\u0e19\u0e4c \u0e41\u0e0b\u0e48\u0e41\u0e14\u0e07", "phone": "0873842085", "address": "35 \u0e0b.\u0e27\u0e34\u0e20\u0e32\u0e27\u0e14\u0e35\u0e23\u0e31\u0e07\u0e2a\u0e34\u0e15 16/19 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07  \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e2f", "postcode": "10400", "lat": 13.78934754409814, "lng": 100.56285178053224, "note": "Order from web b2b.", "parcels": [{"productId": "1.00000000", "sku": "000000000023022700", "name": "\u0e1b\u0e35\u0e01\u0e44\u0e01\u0e48\u0e2d\u0e1a\u0e23\u0e21\u0e04\u0e27\u0e31\u0e19(SCW-220GM)", "weight": 220, "price": 48, "dimension": {"width": 10, "height": 10, "length": 5}}], "payment": {"method": "CASH", "amount": 120}}]} 
+json=None</msg>
+<msg timestamp="20210407 17:48:48.455" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:48.455" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.105" endtime="20210407 17:48:48.455"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.456" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:48.455" endtime="20210407 17:48:48.456"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.456" level="INFO">{'status': 'OK', 'statusCode': 200, 'success': True, 'error': None}</msg>
+<status status="PASS" starttime="20210407 17:48:48.456" endtime="20210407 17:48:48.457"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.458" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.458" endtime="20210407 17:48:48.458"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.457" endtime="20210407 17:48:48.459"></status>
+</kw>
+<kw name="Validation field success equal true" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.460" level="INFO">${ResMessage} = True</msg>
+<status status="PASS" starttime="20210407 17:48:48.459" endtime="20210407 17:48:48.460"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.461" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.460" endtime="20210407 17:48:48.461"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.459" endtime="20210407 17:48:48.461"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.097" endtime="20210407 17:48:48.461" critical="yes"></status>
+</test>
+<test id="s1-t10" name="TC_0012_ Customer_Chcek Check Time zone">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.462" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:48.462" endtime="20210407 17:48:48.463"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.464" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:48.463" endtime="20210407 17:48:48.464"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${json_string}</arg>
+</arguments>
+<assign>
+<var>${new_json_string}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.465" level="INFO">${json_random} = {'consignment': 'TOP06052020IN001', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหาน...</msg>
+<status status="PASS" starttime="20210407 17:48:48.464" endtime="20210407 17:48:48.465"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.465" level="INFO">${random_int} = 1789</msg>
+<status status="PASS" starttime="20210407 17:48:48.465" endtime="20210407 17:48:48.465"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:48.465" endtime="20210407 17:48:48.466"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.466" level="INFO">${json_string} = {"consignment": "TEST2701IN1789", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.466" endtime="20210407 17:48:48.466"></status>
+</kw>
+<msg timestamp="20210407 17:48:48.467" level="INFO">${new_json_string} = {"consignment": "TEST2701IN1789", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.464" endtime="20210407 17:48:48.467"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${new_json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.467" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={"consignment": "TEST2701IN1789", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e2a\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23 10400", "lat": 13.6855281, "lng": 100.6110932, "note": "TOPTEST RUN AUTOMATION", "pickUpAt": {"start": "2020-06-08T03:00:46.414Z"}}, "recipients": [{"name": "\u0e19\u0e32\u0e07\u0e2a\u0e32\u0e27 \u0e2a\u0e38\u0e20\u0e32\u0e23\u0e31\u0e15\u0e19\u0e4c \u0e41\u0e0b\u0e48\u0e41\u0e14\u0e07", "phone": "0873842085", "address": "35 \u0e0b.\u0e27\u0e34\u0e20\u0e32\u0e27\u0e14\u0e35\u0e23\u0e31\u0e07\u0e2a\u0e34\u0e15 16/19 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07  \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e2f", "postcode": "10400", "lat": 13.78934754409814, "lng": 100.56285178053224, "note": "Order from web b2b.", "parcels": [{"productId": "1.00000000", "sku": "000000000023022700", "name": "\u0e1b\u0e35\u0e01\u0e44\u0e01\u0e48\u0e2d\u0e1a\u0e23\u0e21\u0e04\u0e27\u0e31\u0e19(SCW-220GM)", "weight": 220, "price": 48, "dimension": {"width": 10, "height": 10, "length": 5}}], "payment": {"method": "CASH", "amount": 120}}]} 
+json=None</msg>
+<msg timestamp="20210407 17:48:48.834" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:48.834" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.467" endtime="20210407 17:48:48.834"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.835" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:48.834" endtime="20210407 17:48:48.835"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.835" level="INFO">{'status': 'OK', 'statusCode': 200, 'success': True, 'error': None}</msg>
+<status status="PASS" starttime="20210407 17:48:48.835" endtime="20210407 17:48:48.835"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.837" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.836" endtime="20210407 17:48:48.837"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.836" endtime="20210407 17:48:48.837"></status>
+</kw>
+<kw name="Validation field success equal true" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.838" level="INFO">${ResMessage} = True</msg>
+<status status="PASS" starttime="20210407 17:48:48.838" endtime="20210407 17:48:48.838"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.839" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.838" endtime="20210407 17:48:48.839"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.837" endtime="20210407 17:48:48.839"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.461" endtime="20210407 17:48:48.839" critical="yes"></status>
+</test>
+<test id="s1-t11" name="TC_0013_Check field consignment if user fill-in data with string">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:48.841" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:48.840" endtime="20210407 17:48:48.841"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.842" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:48.841" endtime="20210407 17:48:48.842"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${new_json_string}</arg>
+</arguments>
+<assign>
+<var>${new_json_string}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.843" level="INFO">${json_random} = {'consignment': 'TEST2701IN3577', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร...</msg>
+<status status="PASS" starttime="20210407 17:48:48.843" endtime="20210407 17:48:48.843"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.844" level="INFO">${random_int} = 7628</msg>
+<status status="PASS" starttime="20210407 17:48:48.844" endtime="20210407 17:48:48.844"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:48.844" endtime="20210407 17:48:48.844"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.845" level="INFO">${json_string} = {"consignment": "TEST2701IN7628", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.844" endtime="20210407 17:48:48.845"></status>
+</kw>
+<msg timestamp="20210407 17:48:48.845" level="INFO">${new_json_string} = {"consignment": "TEST2701IN7628", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:48.842" endtime="20210407 17:48:48.845"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${new_json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:48.846" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={"consignment": "TEST2701IN7628", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e2a\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23 10400", "lat": 13.6855281, "lng": 100.6110932, "note": "TOPTEST RUN AUTOMATION", "pickUpAt": {"start": "2020-06-08T03:00:46.414Z"}}, "recipients": [{"name": "\u0e19\u0e32\u0e07\u0e2a\u0e32\u0e27 \u0e2a\u0e38\u0e20\u0e32\u0e23\u0e31\u0e15\u0e19\u0e4c \u0e41\u0e0b\u0e48\u0e41\u0e14\u0e07", "phone": "0873842085", "address": "35 \u0e0b.\u0e27\u0e34\u0e20\u0e32\u0e27\u0e14\u0e35\u0e23\u0e31\u0e07\u0e2a\u0e34\u0e15 16/19 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07  \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e2f", "postcode": "10400", "lat": 13.78934754409814, "lng": 100.56285178053224, "note": "Order from web b2b.", "parcels": [{"productId": "1.00000000", "sku": "000000000023022700", "name": "\u0e1b\u0e35\u0e01\u0e44\u0e01\u0e48\u0e2d\u0e1a\u0e23\u0e21\u0e04\u0e27\u0e31\u0e19(SCW-220GM)", "weight": 220, "price": 48, "dimension": {"width": 10, "height": 10, "length": 5}}], "payment": {"method": "CASH", "amount": 120}}]} 
+json=None</msg>
+<msg timestamp="20210407 17:48:49.238" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:49.238" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:48.845" endtime="20210407 17:48:49.238"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.239" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:49.239" endtime="20210407 17:48:49.239"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.240" level="INFO">{'status': 'OK', 'statusCode': 200, 'success': True, 'error': None}</msg>
+<status status="PASS" starttime="20210407 17:48:49.239" endtime="20210407 17:48:49.240"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.241" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.241" endtime="20210407 17:48:49.241"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.240" endtime="20210407 17:48:49.241"></status>
+</kw>
+<kw name="Validation field success equal true" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.242" level="INFO">${ResMessage} = True</msg>
+<status status="PASS" starttime="20210407 17:48:49.242" endtime="20210407 17:48:49.243"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.243" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.243" endtime="20210407 17:48:49.243"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.241" endtime="20210407 17:48:49.244"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:48.840" endtime="20210407 17:48:49.244" critical="yes"></status>
+</test>
+<test id="s1-t12" name="TC_0014_Validation order type number equal -1">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.245" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:49.245" endtime="20210407 17:48:49.246"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.246" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:49.246" endtime="20210407 17:48:49.246"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0014_Validation order type number equal -1.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.247" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0014_Validation order type number equal -1.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0014_Validation order type number equal -1.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:49.253" level="INFO">${json_string} = {
+    "consignment": "TOPTEST00000014",
+    "orderType": -1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวิน...</msg>
+<status status="PASS" starttime="20210407 17:48:49.247" endtime="20210407 17:48:49.253"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.254" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "consignment": "TOPTEST00000014",
+    "orderType": -1,
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "TOPTEST RUN AUTOMATION",
+        "pickUpAt": {
+            "start": "2020-11-03T03:00:46.414Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "นางสาว สุภารัตน์ แซ่แดง",
+            "phone": "0873842085",
+            "address": "35 ซ.วิภาวดีรังสิต 16/19 แขวงดินแดง  เขตดินแดง กรุงเทพฯ",
+            "postcode": "10400",
+            "lat": 13.78934754409814,
+            "lng": 100.56285178053224,
+            "note": "TOPTEST RUN AUTOMATION",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023022700",
+                    "name": "ปีกไก่อบรมควัน(SCW-220GM)",
+                    "weight": 220,
+                    "price": 48,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 120
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:49.606" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:49.606" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.253" endtime="20210407 17:48:49.606"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.607" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 17:48:49.607" endtime="20210407 17:48:49.607"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.607" level="INFO">{'success': False, 'data': None, 'error': {'message': 'order type is invalid'}}</msg>
+<status status="PASS" starttime="20210407 17:48:49.607" endtime="20210407 17:48:49.607"></status>
+</kw>
+<kw name="Validation Http status code 400 Bad request" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>400</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.609" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.609" endtime="20210407 17:48:49.609"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.608" endtime="20210407 17:48:49.609"></status>
+</kw>
+<kw name="To verify create order order type incorrect" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.611" level="INFO">${ResMessage} = order type is invalid</msg>
+<status status="PASS" starttime="20210407 17:48:49.611" endtime="20210407 17:48:49.611"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>order type is invalid</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:49.612" endtime="20210407 17:48:49.612"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.610" endtime="20210407 17:48:49.612"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.244" endtime="20210407 17:48:49.612" critical="yes"></status>
+</test>
+<test id="s1-t13" name="TC_0015_Validation orderType correct">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.614" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:49.614" endtime="20210407 17:48:49.615"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.616" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:49.615" endtime="20210407 17:48:49.616"></status>
+</kw>
+<kw name="To verify random consignment number" library="user_keywords_created_order">
+<arguments>
+<arg>${new_json_string}</arg>
+</arguments>
+<assign>
+<var>${new_json_string}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${json_string}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_random}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.617" level="INFO">${json_random} = {'consignment': 'TEST2701IN3577', 'orderType': 1, 'sender': {'name': 'CP Fresh Mart - อินทามระ 41', 'phone': '083-9889780', 'address': '1271,1273 ถนนสุทธิสารวินิจฉัย แขวงดินแดง เขตดินแดง กรุงเทพมหานคร...</msg>
+<status status="PASS" starttime="20210407 17:48:49.617" endtime="20210407 17:48:49.617"></status>
+</kw>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>4</arg>
+<arg>0123456789</arg>
+</arguments>
+<assign>
+<var>${random_int}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.618" level="INFO">${random_int} = 9431</msg>
+<status status="PASS" starttime="20210407 17:48:49.617" endtime="20210407 17:48:49.618"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${json_random}</arg>
+<arg>consignment=TEST2701IN${random_int}</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:49.618" endtime="20210407 17:48:49.618"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.dumps(${json_random})</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.619" level="INFO">${json_string} = {"consignment": "TEST2701IN9431", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:49.618" endtime="20210407 17:48:49.619"></status>
+</kw>
+<msg timestamp="20210407 17:48:49.619" level="INFO">${new_json_string} = {"consignment": "TEST2701IN9431", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u...</msg>
+<status status="PASS" starttime="20210407 17:48:49.616" endtime="20210407 17:48:49.619"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${new_json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.620" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={"consignment": "TEST2701IN9431", "orderType": 1, "sender": {"name": "CP Fresh Mart - \u0e2d\u0e34\u0e19\u0e17\u0e32\u0e21\u0e23\u0e30 41", "phone": "083-9889780", "address": "1271,1273 \u0e16\u0e19\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e2a\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23 10400", "lat": 13.6855281, "lng": 100.6110932, "note": "TOPTEST RUN AUTOMATION", "pickUpAt": {"start": "2020-06-08T03:00:46.414Z"}}, "recipients": [{"name": "\u0e19\u0e32\u0e07\u0e2a\u0e32\u0e27 \u0e2a\u0e38\u0e20\u0e32\u0e23\u0e31\u0e15\u0e19\u0e4c \u0e41\u0e0b\u0e48\u0e41\u0e14\u0e07", "phone": "0873842085", "address": "35 \u0e0b.\u0e27\u0e34\u0e20\u0e32\u0e27\u0e14\u0e35\u0e23\u0e31\u0e07\u0e2a\u0e34\u0e15 16/19 \u0e41\u0e02\u0e27\u0e07\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07  \u0e40\u0e02\u0e15\u0e14\u0e34\u0e19\u0e41\u0e14\u0e07 \u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e2f", "postcode": "10400", "lat": 13.78934754409814, "lng": 100.56285178053224, "note": "Order from web b2b.", "parcels": [{"productId": "1.00000000", "sku": "000000000023022700", "name": "\u0e1b\u0e35\u0e01\u0e44\u0e01\u0e48\u0e2d\u0e1a\u0e23\u0e21\u0e04\u0e27\u0e31\u0e19(SCW-220GM)", "weight": 220, "price": 48, "dimension": {"width": 10, "height": 10, "length": 5}}], "payment": {"method": "CASH", "amount": 120}}]} 
+json=None</msg>
+<msg timestamp="20210407 17:48:49.962" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:49.962" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.619" endtime="20210407 17:48:49.962"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.963" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:49.962" endtime="20210407 17:48:49.963"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.965" level="INFO">{'status': 'OK', 'statusCode': 200, 'success': True, 'error': None}</msg>
+<status status="PASS" starttime="20210407 17:48:49.963" endtime="20210407 17:48:49.965"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.966" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.966" endtime="20210407 17:48:49.967"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.965" endtime="20210407 17:48:49.967"></status>
+</kw>
+<kw name="Validation field success equal true" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.968" level="INFO">${ResMessage} = True</msg>
+<status status="PASS" starttime="20210407 17:48:49.968" endtime="20210407 17:48:49.969"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.969" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.969" endtime="20210407 17:48:49.969"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.967" endtime="20210407 17:48:49.969"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.613" endtime="20210407 17:48:49.969" critical="yes"></status>
+</test>
+<test id="s1-t14" name="TC_0016_Validation field vehicle type number incorrect">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:49.971" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:49.971" endtime="20210407 17:48:49.972"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.973" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:49.972" endtime="20210407 17:48:49.973"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0016_Validation filed vehicle type number incorrect.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.974" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0016_Validation filed vehicle type number incorrect.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0016_Validation filed vehicle type number incorrect.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:49.976" level="INFO">${json_string} = {
+    "consignment": "TEST0929IN001",
+    "orderType": 2,
+    "vehicle": {
+        "type": -1,
+        "amount": 1
+    },
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone"...</msg>
+<status status="PASS" starttime="20210407 17:48:49.973" endtime="20210407 17:48:49.976"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:49.977" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "consignment": "TEST0929IN001",
+    "orderType": 2,
+    "vehicle": {
+        "type": -1,
+        "amount": 1
+    },
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "True Digital park 101 Sukhumvit Road, Bangkok 10260 Thailand",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "ทดสอบระบบ TOPTEST",
+        "pickUpAt": {
+            "start": "2020-09-24T04:07:00.000Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "Panuwit Supageeratirod",
+            "phone": "0873842085",
+            "address": "รพ กรุงเทพ",
+            "lat": 13.7341699,
+            "lng": 100.5854607,
+            "note": "Order from web b2b. XXX",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023025642",
+                    "name": "เนื้อหนูหมัก 2 กิโล",
+                    "weight": 10000,
+                    "price": 69,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 539
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:50.325" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:50.326" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:49.976" endtime="20210407 17:48:50.326"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.326" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 17:48:50.326" endtime="20210407 17:48:50.326"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:50.327" level="INFO">{'success': False, 'data': None, 'error': {'message': 'vehicle type is invalid'}}</msg>
+<status status="PASS" starttime="20210407 17:48:50.327" endtime="20210407 17:48:50.327"></status>
+</kw>
+<kw name="Validation Http status code 400 Bad request" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>400</arg>
+</arguments>
+<msg timestamp="20210407 17:48:50.329" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:50.328" endtime="20210407 17:48:50.329"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:50.327" endtime="20210407 17:48:50.329"></status>
+</kw>
+<kw name="To verify create order vehicle type number incorrect" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["error"]}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.332" level="INFO">${ResMessage} = vehicle type is invalid</msg>
+<status status="PASS" starttime="20210407 17:48:50.331" endtime="20210407 17:48:50.332"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>vehicle type is invalid</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:50.332" endtime="20210407 17:48:50.333"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:50.329" endtime="20210407 17:48:50.333"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:49.970" endtime="20210407 17:48:50.333" critical="yes"></status>
+</test>
+<test id="s1-t15" name="TC_0017_Validation consignment must be a string">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${on_demand_host}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:50.335" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com/ondemand-gateway, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:50.335" endtime="20210407 17:48:50.336"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.337" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:50.336" endtime="20210407 17:48:50.337"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_0017_Validation consignment must be a string.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.338" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0017_Validation consignment must be a string.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Create_order/TC_0017_Validation consignment must be a string.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:50.344" level="INFO">${json_string} = {
+    "consignment": 57160539,
+    "orderType": 2,
+    "vehicle": {
+        "type": 1,
+        "amount": 1
+    },
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9...</msg>
+<status status="PASS" starttime="20210407 17:48:50.337" endtime="20210407 17:48:50.346"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>${path}</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.349" level="INFO">POST Request using : uri=/v1/order, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "consignment": 57160539,
+    "orderType": 2,
+    "vehicle": {
+        "type": 1,
+        "amount": 1
+    },
+    "sender": {
+        "name": "CP Fresh Mart - อินทามระ 41",
+        "phone": "083-9889780",
+        "address": "True Digital park 101 Sukhumvit Road, Bangkok 10260 Thailand",
+        "lat": 13.6855281,
+        "lng": 100.6110932, 
+        "note": "ทดสอบระบบ TOPTEST",
+        "pickUpAt": {
+            "start": "2020-09-24T04:07:00.000Z"
+        }
+    },
+    "recipients": [
+        {
+            "name": "Panuwit Supageeratirod",
+            "phone": "0873842085",
+            "address": "รพ กรุงเทพ",
+            "lat": 13.7341699,
+            "lng": 100.5854607,
+            "note": "Order from web b2b. XXX",
+            "parcels": [
+                {
+                    "productId": "1.00000000",
+                    "sku": "000000000023025642",
+                    "name": "เนื้อหนูหมัก 2 กิโล",
+                    "weight": 10000,
+                    "price": 69,
+                    "dimension": {
+                        "width": 10,
+                        "height": 10,
+                        "length": 5
+                    }
+                }
+            ],
+            "payment": {
+                "method": "CASH",
+                "amount": 539
+            }
+        }
+    ]
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:50.512" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:50.512" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:50.347" endtime="20210407 17:48:50.512"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.513" level="INFO">${http_status_res_code} = 400</msg>
+<status status="PASS" starttime="20210407 17:48:50.513" endtime="20210407 17:48:50.513"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:50.514" level="INFO">{'success': False, 'data': None, 'errors': ['consignment must be a string'], 'error': {'message': "Invalid body, check 'errors' property for more info."}}</msg>
+<status status="PASS" starttime="20210407 17:48:50.514" endtime="20210407 17:48:50.515"></status>
+</kw>
+<kw name="Validation Http status code 400 Bad request" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>400</arg>
+</arguments>
+<msg timestamp="20210407 17:48:50.516" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:50.515" endtime="20210407 17:48:50.516"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:50.515" endtime="20210407 17:48:50.516"></status>
+</kw>
+<kw name="Validation field success equal false" library="user_keywords">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>success</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.517" level="INFO">${ResMessage} = False</msg>
+<status status="PASS" starttime="20210407 17:48:50.516" endtime="20210407 17:48:50.517"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage}</arg>
+<arg>False</arg>
+</arguments>
+<msg timestamp="20210407 17:48:50.517" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:50.517" endtime="20210407 17:48:50.517"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:50.516" endtime="20210407 17:48:50.518"></status>
+</kw>
+<kw name="To verify consignment must be a string" library="user_keywords_created_order">
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>errors</arg>
+</arguments>
+<assign>
+<var>${ResMessage}</var>
+</assign>
+<msg timestamp="20210407 17:48:50.519" level="INFO">${ResMessage} = ['consignment must be a string']</msg>
+<status status="PASS" starttime="20210407 17:48:50.518" endtime="20210407 17:48:50.519"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${ResMessage[0]}</arg>
+<arg>consignment must be a string</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:50.519" endtime="20210407 17:48:50.520"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:50.518" endtime="20210407 17:48:50.520"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:50.334" endtime="20210407 17:48:50.520" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210407 17:48:45.369" endtime="20210407 17:48:50.521"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="15" fail="0">Critical Tests</stat>
+<stat pass="15" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="15" fail="0" id="s1" name="API Create order">API Create order</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

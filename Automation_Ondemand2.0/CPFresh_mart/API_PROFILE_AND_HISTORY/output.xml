@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.4 on darwin)" generated="20210407 17:48:06.312" rpa="false">
+<suite id="s1" name="API GET History detail" source="/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Profile_and_History/API_GET_History_detail.robot">
+<test id="s1-t1" name="Setting Selenium Options">
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<arguments>
+<arg>10s</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:07.179" endtime="20210407 17:48:07.180"></status>
+</kw>
+<kw name="Set Selenium Timeout" library="Selenium2Library">
+<doc>Sets the timeout that is used by various keywords.</doc>
+<arguments>
+<arg>60</arg>
+</arguments>
+<status status="PASS" starttime="20210407 17:48:07.180" endtime="20210407 17:48:07.180"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:07.178" endtime="20210407 17:48:07.181" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Login_driver">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://app-4pl-authentication.drivs.staging.tel.internal</arg>
+</arguments>
+<msg timestamp="20210407 17:48:07.182" level="INFO">Creating Session using : alias=session, url=http://app-4pl-authentication.drivs.staging.tel.internal, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:07.181" endtime="20210407 17:48:07.182"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>apiKey=${api-key}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>x-consumer-username=CPF</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.183" level="INFO">${headers} = {'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'}</msg>
+<status status="PASS" starttime="20210407 17:48:07.183" endtime="20210407 17:48:07.183"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>TC_001_login.json</arg>
+</arguments>
+<assign>
+<var>${json_string}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.184" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Profile_and_History/TC_001_login.json"&gt;/Users/panuwitsupageeratirod/ondemand/Automation_Ondemand2.0/CPFresh mart/API_Profile_and_History/TC_001_login.json&lt;/a&gt;'.</msg>
+<msg timestamp="20210407 17:48:07.185" level="INFO">${json_string} = {
+    "citizenId": "1000000000019",
+    "password": "@Test0019"
+}</msg>
+<status status="PASS" starttime="20210407 17:48:07.184" endtime="20210407 17:48:07.185"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/auth/login-citizen-id</arg>
+<arg>data=${json_string}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.185" level="INFO">POST Request using : uri=/v1/auth/login-citizen-id, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'apiKey': 'x210JD9W0BrlKmqDWgegELzRvPfIiVb5', 'Content-Type': 'application/json', 'x-consumer-username': 'CPF'} 
+data={
+    "citizenId": "1000000000019",
+    "password": "@Test0019"
+} 
+json=None</msg>
+<msg timestamp="20210407 17:48:07.718" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:07.185" endtime="20210407 17:48:07.718"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.719" level="INFO">${http_status_res_code} = 200</msg>
+<status status="PASS" starttime="20210407 17:48:07.718" endtime="20210407 17:48:07.719"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:07.720" level="INFO">{'data': {'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'refreshToken': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxOTAwMjA4NywiaXNzIjoicWVSUkxaa3ptIn0.M3qHHz9feVhFNCZ-nvcFUYtf42hx0I65JXhiWtSWYqo'}, 'status': 'OK', 'statusCodes': 200}</msg>
+<status status="PASS" starttime="20210407 17:48:07.719" endtime="20210407 17:48:07.720"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:07.721" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:07.721" endtime="20210407 17:48:07.721"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:07.721" endtime="20210407 17:48:07.722"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resp.json()["data"]}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${Authorization}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.723" level="INFO">${Authorization} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdO...</msg>
+<status status="PASS" starttime="20210407 17:48:07.722" endtime="20210407 17:48:07.723"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${Authorization}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:07.723" level="INFO">${Authorization} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdO...</msg>
+<status status="PASS" starttime="20210407 17:48:07.723" endtime="20210407 17:48:07.723"></status>
+</kw>
+<status status="PASS" starttime="20210407 17:48:07.181" endtime="20210407 17:48:07.723" critical="yes"></status>
+</test>
+<test id="s1-t3" name="TC_001_GET History detail happy case (order status : delivered)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>https://api.staging.true-e-logistics.com</arg>
+</arguments>
+<msg timestamp="20210407 17:48:07.725" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:07.725" endtime="20210407 17:48:07.726"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${Authorization}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>project-id=${project-id}</arg>
+<arg>company-id=${company-id}</arg>
+<arg>language=${language_th}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.729" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSU...</msg>
+<status status="PASS" starttime="20210407 17:48:07.726" endtime="20210407 17:48:07.729"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/mobile/driver/schedule/detail/5f91356d9605610011f98954</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:07.730" level="INFO">GET Request using : uri=/v1/mobile/driver/schedule/detail/5f91356d9605610011f98954, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'Content-Type': 'application/json', 'project-id': '5ec78aecf3a41244b9031586', 'company-id': '5ea93cda890a1f52c86637e3', 'language': 'th'} 
+data=None 
+json=None</msg>
+<msg timestamp="20210407 17:48:09.003" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:09.004" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:07.729" endtime="20210407 17:48:09.004"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:09.005" level="INFO">{'message': 'connect ECONNREFUSED 172.20.228.236:80', 'config': {'url': 'http://app-4pl-tms-api/v1/trips/5f91356d9605610011f98954?populate=[{"path":"tasks","populate":[{"path":"geographyId"},{"path":"taskTypeId"}]}]', 'method': 'get', 'params': {}, 'headers': {'Accept': 'application/json, text/plain, */*', 'User-Agent': 'axios/0.19.2'}, 'transformRequest': [None], 'transformResponse': [None], 'timeout': 0, 'xsrfCookieName': 'XSRF-TOKEN', 'xsrfHeaderName': 'X-XSRF-TOKEN', 'maxContentLength': -1}, 'code': 'ECONNREFUSED'}</msg>
+<status status="PASS" starttime="20210407 17:48:09.004" endtime="20210407 17:48:09.005"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:09.006" level="INFO">${http_status_res_code} = 500</msg>
+<status status="PASS" starttime="20210407 17:48:09.005" endtime="20210407 17:48:09.006"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:09.008" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20210407 17:48:09.008" level="FAIL">500 != 200</msg>
+<status status="FAIL" starttime="20210407 17:48:09.007" endtime="20210407 17:48:09.009"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:09.006" endtime="20210407 17:48:09.009"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:07.724" endtime="20210407 17:48:09.010" critical="yes">500 != 200</status>
+</test>
+<test id="s1-t4" name="TC_002_GET History detail happy case (combine order status : delivered)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>https://api.staging.true-e-logistics.com</arg>
+</arguments>
+<msg timestamp="20210407 17:48:09.014" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:09.014" endtime="20210407 17:48:09.015"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${Authorization}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>project-id=${project-id}</arg>
+<arg>company-id=${company-id}</arg>
+<arg>language=${language_th}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:09.015" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSU...</msg>
+<status status="PASS" starttime="20210407 17:48:09.015" endtime="20210407 17:48:09.015"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/mobile/driver/schedule/detail/5f97b9fb460c00001158a03a</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:09.016" level="INFO">GET Request using : uri=/v1/mobile/driver/schedule/detail/5f97b9fb460c00001158a03a, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'Content-Type': 'application/json', 'project-id': '5ec78aecf3a41244b9031586', 'company-id': '5ea93cda890a1f52c86637e3', 'language': 'th'} 
+data=None 
+json=None</msg>
+<msg timestamp="20210407 17:48:10.219" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:10.219" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:09.015" endtime="20210407 17:48:10.219"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:10.220" level="INFO">{'message': 'connect ECONNREFUSED 172.20.228.236:80', 'config': {'url': 'http://app-4pl-tms-api/v1/trips/5f97b9fb460c00001158a03a?populate=[{"path":"tasks","populate":[{"path":"geographyId"},{"path":"taskTypeId"}]}]', 'method': 'get', 'params': {}, 'headers': {'Accept': 'application/json, text/plain, */*', 'User-Agent': 'axios/0.19.2'}, 'transformRequest': [None], 'transformResponse': [None], 'timeout': 0, 'xsrfCookieName': 'XSRF-TOKEN', 'xsrfHeaderName': 'X-XSRF-TOKEN', 'maxContentLength': -1}, 'code': 'ECONNREFUSED'}</msg>
+<status status="PASS" starttime="20210407 17:48:10.220" endtime="20210407 17:48:10.220"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:10.221" level="INFO">${http_status_res_code} = 500</msg>
+<status status="PASS" starttime="20210407 17:48:10.220" endtime="20210407 17:48:10.221"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:10.222" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20210407 17:48:10.222" level="FAIL">500 != 200</msg>
+<status status="FAIL" starttime="20210407 17:48:10.222" endtime="20210407 17:48:10.222"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:10.221" endtime="20210407 17:48:10.222"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:09.013" endtime="20210407 17:48:10.223" critical="yes">500 != 200</status>
+</test>
+<test id="s1-t5" name="TC_003_GET History detail happy case (order status : Partial Delivered)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>https://api.staging.true-e-logistics.com</arg>
+</arguments>
+<msg timestamp="20210407 17:48:10.224" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:10.223" endtime="20210407 17:48:10.224"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${Authorization}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>project-id=${project-id}</arg>
+<arg>company-id=${company-id}</arg>
+<arg>language=${language_en}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:10.225" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSU...</msg>
+<status status="PASS" starttime="20210407 17:48:10.224" endtime="20210407 17:48:10.225"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/mobile/driver/schedule/detail/5f97c345460c00001158a0b4</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:10.226" level="INFO">GET Request using : uri=/v1/mobile/driver/schedule/detail/5f97c345460c00001158a0b4, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'Content-Type': 'application/json', 'project-id': '5ec78aecf3a41244b9031586', 'company-id': '5ea93cda890a1f52c86637e3', 'language': 'en'} 
+data=None 
+json=None</msg>
+<msg timestamp="20210407 17:48:11.435" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:11.435" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:10.225" endtime="20210407 17:48:11.435"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:11.436" level="INFO">{'message': 'connect ECONNREFUSED 172.20.228.236:80', 'config': {'url': 'http://app-4pl-tms-api/v1/trips/5f97c345460c00001158a0b4?populate=[{"path":"tasks","populate":[{"path":"geographyId"},{"path":"taskTypeId"}]}]', 'method': 'get', 'params': {}, 'headers': {'Accept': 'application/json, text/plain, */*', 'User-Agent': 'axios/0.19.2'}, 'transformRequest': [None], 'transformResponse': [None], 'timeout': 0, 'xsrfCookieName': 'XSRF-TOKEN', 'xsrfHeaderName': 'X-XSRF-TOKEN', 'maxContentLength': -1}, 'code': 'ECONNREFUSED'}</msg>
+<status status="PASS" starttime="20210407 17:48:11.435" endtime="20210407 17:48:11.436"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:11.437" level="INFO">${http_status_res_code} = 500</msg>
+<status status="PASS" starttime="20210407 17:48:11.436" endtime="20210407 17:48:11.437"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:11.439" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20210407 17:48:11.439" level="FAIL">500 != 200</msg>
+<status status="FAIL" starttime="20210407 17:48:11.438" endtime="20210407 17:48:11.439"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:11.437" endtime="20210407 17:48:11.440"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:10.223" endtime="20210407 17:48:11.440" critical="yes">500 != 200</status>
+</test>
+<test id="s1-t6" name="TC_004_GET History detail unhappy case (order status : Canceled)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>https://api.staging.true-e-logistics.com</arg>
+</arguments>
+<msg timestamp="20210407 17:48:11.442" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:11.441" endtime="20210407 17:48:11.442"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${Authorization}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>project-id=${project-id}</arg>
+<arg>company-id=${company-id}</arg>
+<arg>language=${language_en}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:11.443" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSU...</msg>
+<status status="PASS" starttime="20210407 17:48:11.442" endtime="20210407 17:48:11.443"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/mobile/driver/schedule/detail/5f979f10460c000011589e37</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:11.444" level="INFO">GET Request using : uri=/v1/mobile/driver/schedule/detail/5f979f10460c000011589e37, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'Content-Type': 'application/json', 'project-id': '5ec78aecf3a41244b9031586', 'company-id': '5ea93cda890a1f52c86637e3', 'language': 'en'} 
+data=None 
+json=None</msg>
+<msg timestamp="20210407 17:48:12.619" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:12.619" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:11.443" endtime="20210407 17:48:12.619"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:12.620" level="INFO">{'message': 'connect ECONNREFUSED 172.20.228.236:80', 'config': {'url': 'http://app-4pl-tms-api/v1/trips/5f979f10460c000011589e37?populate=[{"path":"tasks","populate":[{"path":"geographyId"},{"path":"taskTypeId"}]}]', 'method': 'get', 'params': {}, 'headers': {'Accept': 'application/json, text/plain, */*', 'User-Agent': 'axios/0.19.2'}, 'transformRequest': [None], 'transformResponse': [None], 'timeout': 0, 'xsrfCookieName': 'XSRF-TOKEN', 'xsrfHeaderName': 'X-XSRF-TOKEN', 'maxContentLength': -1}, 'code': 'ECONNREFUSED'}</msg>
+<status status="PASS" starttime="20210407 17:48:12.619" endtime="20210407 17:48:12.620"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:12.621" level="INFO">${http_status_res_code} = 500</msg>
+<status status="PASS" starttime="20210407 17:48:12.620" endtime="20210407 17:48:12.621"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:12.622" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20210407 17:48:12.622" level="FAIL">500 != 200</msg>
+<status status="FAIL" starttime="20210407 17:48:12.622" endtime="20210407 17:48:12.622"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:12.622" endtime="20210407 17:48:12.623"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:11.440" endtime="20210407 17:48:12.623" critical="yes">500 != 200</status>
+</test>
+<test id="s1-t7" name="TC_005_GET History detail unhappy case (order status : Failed)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>https://api.staging.true-e-logistics.com</arg>
+</arguments>
+<msg timestamp="20210407 17:48:12.625" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:12.624" endtime="20210407 17:48:12.625"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${Authorization}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>project-id=${project-id}</arg>
+<arg>company-id=${company-id}</arg>
+<arg>language=${language_en}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:12.626" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSU...</msg>
+<status status="PASS" starttime="20210407 17:48:12.625" endtime="20210407 17:48:12.626"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/mobile/driver/schedule/detail/5f979ce2460c000011589dd8</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:12.626" level="INFO">GET Request using : uri=/v1/mobile/driver/schedule/detail/5f979ce2460c000011589dd8, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'Content-Type': 'application/json', 'project-id': '5ec78aecf3a41244b9031586', 'company-id': '5ea93cda890a1f52c86637e3', 'language': 'en'} 
+data=None 
+json=None</msg>
+<msg timestamp="20210407 17:48:13.838" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:13.838" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:12.626" endtime="20210407 17:48:13.838"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:13.839" level="INFO">{'message': 'connect ECONNREFUSED 172.20.228.236:80', 'config': {'url': 'http://app-4pl-tms-api/v1/trips/5f979ce2460c000011589dd8?populate=[{"path":"tasks","populate":[{"path":"geographyId"},{"path":"taskTypeId"}]}]', 'method': 'get', 'params': {}, 'headers': {'Accept': 'application/json, text/plain, */*', 'User-Agent': 'axios/0.19.2'}, 'transformRequest': [None], 'transformResponse': [None], 'timeout': 0, 'xsrfCookieName': 'XSRF-TOKEN', 'xsrfHeaderName': 'X-XSRF-TOKEN', 'maxContentLength': -1}, 'code': 'ECONNREFUSED'}</msg>
+<status status="PASS" starttime="20210407 17:48:13.839" endtime="20210407 17:48:13.839"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:13.841" level="INFO">${http_status_res_code} = 500</msg>
+<status status="PASS" starttime="20210407 17:48:13.840" endtime="20210407 17:48:13.841"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:13.843" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20210407 17:48:13.844" level="FAIL">500 != 200</msg>
+<status status="FAIL" starttime="20210407 17:48:13.843" endtime="20210407 17:48:13.844"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:13.842" endtime="20210407 17:48:13.844"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:12.623" endtime="20210407 17:48:13.844" critical="yes">500 != 200</status>
+</test>
+<test id="s1-t8" name="TC_006_GET History detail unhappy case(order status : Rejected)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>https://api.staging.true-e-logistics.com</arg>
+</arguments>
+<msg timestamp="20210407 17:48:13.846" level="INFO">Creating Session using : alias=session, url=https://api.staging.true-e-logistics.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210407 17:48:13.845" endtime="20210407 17:48:13.846"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${Authorization}</arg>
+<arg>Content-Type=${Content-Type}</arg>
+<arg>project-id=${project-id}</arg>
+<arg>company-id=${company-id}</arg>
+<arg>language=${language_en}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210407 17:48:13.848" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSU...</msg>
+<status status="PASS" starttime="20210407 17:48:13.847" endtime="20210407 17:48:13.848"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/v1/mobile/driver/schedule/detail/5f9140499605610011f98bd8</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20210407 17:48:13.849" level="INFO">GET Request using : uri=/v1/mobile/driver/schedule/detail/5f9140499605610011f98bd8, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRFU1RfMDAwMTkiLCJlbWFpbCI6IiIsInBob25lIjoiNjY4OTAwMDAwMTkiLCJpYXQiOjE2MTc3OTI0ODcsImV4cCI6MTYxODM5NzI4NywiaXNzIjoicWVSUkxaa3ptIn0.d8V8rmdOhBt4RcV2qPwYLGyDsnAOjWDS2qeJ9K-NGnQ', 'Content-Type': 'application/json', 'project-id': '5ec78aecf3a41244b9031586', 'company-id': '5ea93cda890a1f52c86637e3', 'language': 'en'} 
+data=None 
+json=None</msg>
+<msg timestamp="20210407 17:48:15.029" level="INFO">/Users/panuwitsupageeratirod/.virtualenvs/automate/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20210407 17:48:15.029" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20210407 17:48:13.848" endtime="20210407 17:48:15.030"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20210407 17:48:15.031" level="INFO">{'message': 'connect ECONNREFUSED 172.20.228.236:80', 'config': {'url': 'http://app-4pl-tms-api/v1/trips/5f9140499605610011f98bd8?populate=[{"path":"tasks","populate":[{"path":"geographyId"},{"path":"taskTypeId"}]}]', 'method': 'get', 'params': {}, 'headers': {'Accept': 'application/json, text/plain, */*', 'User-Agent': 'axios/0.19.2'}, 'transformRequest': [None], 'transformResponse': [None], 'timeout': 0, 'xsrfCookieName': 'XSRF-TOKEN', 'xsrfHeaderName': 'X-XSRF-TOKEN', 'maxContentLength': -1}, 'code': 'ECONNREFUSED'}</msg>
+<status status="PASS" starttime="20210407 17:48:15.030" endtime="20210407 17:48:15.031"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${http_status_res_code}</var>
+</assign>
+<msg timestamp="20210407 17:48:15.032" level="INFO">${http_status_res_code} = 500</msg>
+<status status="PASS" starttime="20210407 17:48:15.031" endtime="20210407 17:48:15.032"></status>
+</kw>
+<kw name="Validation Http status code success 200 OK" library="user_keywords">
+<arguments>
+<arg>${http_status_res_code}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${http_status_res_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210407 17:48:15.034" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20210407 17:48:15.034" level="FAIL">500 != 200</msg>
+<status status="FAIL" starttime="20210407 17:48:15.033" endtime="20210407 17:48:15.034"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:15.032" endtime="20210407 17:48:15.034"></status>
+</kw>
+<status status="FAIL" starttime="20210407 17:48:13.845" endtime="20210407 17:48:15.034" critical="yes">500 != 200</status>
+</test>
+<status status="FAIL" starttime="20210407 17:48:06.314" endtime="20210407 17:48:15.036"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="6">Critical Tests</stat>
+<stat pass="2" fail="6">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="6" id="s1" name="API GET History detail">API GET History detail</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
