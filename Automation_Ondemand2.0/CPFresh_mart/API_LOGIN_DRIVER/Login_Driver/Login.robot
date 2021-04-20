@@ -7,49 +7,49 @@ Resource    ../../user_keywords.robot
 
 *** Test Cases ***
 
-TC_0001_Login
-    Create Session                                session                                 ${on_demand_host_1}
-    ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
-    ${json_string}                                Get File                                TC_001_Login.json
-    ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
-    log                                           ${resp.json()}             
-    ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
-    Validation Http status code success 200 OK    ${http_status_res_code}     
+# TC_0001_Login
+#     Create Session                                session                                 ${on_demand_host_1}
+#     ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
+#     ${json_string}                                Get File                                TC_001_Login.json
+#     ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
+#     log                                           ${resp.json()}             
+#     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
+#     Validation Http status code success 200 OK    ${http_status_res_code}     
 
-TC_0002_Validation_Login_Fail
-    Create Session                                session                                 ${on_demand_host_1}
-    ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
-    ${json_string}                                Get File                                TC_002_Validation _Login_fail.json
-    ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
-    ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
-    # Validation status code 404 Bad request    ${http_status_res_code}     
+# TC_0002_Validation_Login_Fail
+#     Create Session                                session                                 ${on_demand_host_1}
+#     ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
+#     ${json_string}                                Get File                                TC_002_Validation _Login_fail.json
+#     ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
+#     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
+#     # Validation status code 404 Bad request    ${http_status_res_code}     
 
-TC_0003_Validation Test with valid username empty password such that login must get fail
+# TC_0003_Validation Test with valid username empty password such that login must get fail
 
-    Create Session                                session                                 ${on_demand_host_1}
-    ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
-    ${json_string}                                Get File                                TC_003_Validation _username_empty.json
-    ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
-    ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
-    # Validation status code 404 Bad request     ${http_status_res_code}     
+#     Create Session                                session                                 ${on_demand_host_1}
+#     ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
+#     ${json_string}                                Get File                                TC_003_Validation _username_empty.json
+#     ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
+#     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
+#     # Validation status code 404 Bad request     ${http_status_res_code}     
 
-TC_004_Validation _Password_empty
+# TC_004_Validation _Password_empty
 
-    Create Session                                session                                 ${on_demand_host_1}
-    ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
-    ${json_string}                                Get File                                TC_004_Validation _Password_empty.json
-    ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
-    ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
-    # Validation status code 404 Bad request    ${http_status_res_code}     
+#     Create Session                                session                                 ${on_demand_host_1}
+#     ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
+#     ${json_string}                                Get File                                TC_004_Validation _Password_empty.json
+#     ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
+#     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
+#     # Validation status code 404 Bad request    ${http_status_res_code}     
 
-TC_005_Validation_Empty_username_and_empty_password
+# TC_005_Validation_Empty_username_and_empty_password
 
-    Create Session                                session                                 ${on_demand_host_1}
-    ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
-    ${json_string}                                Get File                                TC_005_Validation_Empty_username_and_empty_password.json
-    ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
-    ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
-    # Validation status code 404 Bad request    ${http_status_res_code}     
+#     Create Session                                session                                 ${on_demand_host_1}
+#     ${headers}=                                   Create Dictionary                       Content-Type=${Content-Type}
+#     ${json_string}                                Get File                                TC_005_Validation_Empty_username_and_empty_password.json
+#     ${resp}=                                      Post Request                            session                               ${path_1}                         data=${json_string}      headers=${headers}
+#     ${http_status_res_code}=                      Set Variable                            ${resp.status_code}
+#     # Validation status code 404 Bad request    ${http_status_res_code}     
 
 TC_006_Validation_Verify_character_limit
     
