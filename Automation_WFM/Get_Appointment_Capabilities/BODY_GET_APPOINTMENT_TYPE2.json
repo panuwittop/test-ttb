@@ -1,0 +1,14 @@
+{
+    "INSTALLATION_DATE": "2021-04-26",
+    "ACCESS_MODE": "FTTH",
+    "PROD_SPEC_CODE": "HSI",
+    "ADDRESS_ID": "00000xxx",
+    "SALE_CODE": "installation_normal_package",
+    "DAYS": 1,
+    "CHANGE_SERVICE": [
+        {
+            "PROD_SPEC_CODE": "HSI",
+            "EVENT_CODE": "INSTALLATION_NORMAL"
+        }
+    ]
+}

@@ -5,15 +5,6 @@ Resource    global_variable.robot
 
 
 *** Keywords ***
-Validation Http status code success
-    [Arguments]                    ${URL}                 ${ENDPOINT}            ${REQ_HEADER}=${None}
-    ${resp}=                       Get Request            session                ${Path}                  
-    Should Be Equal As Integers    ${resp.status_code}    200
-    ${api} =                       Get From Dictionary    ${resp.json()}         success
-    Should Be True                 ${api}
-    ${STATUS_CODE}=                Set Variable           ${resp.status_code}
-    [Return]                       ${STATUS_CODE}
-
 Validation Http status code success 200 OK
     [Arguments]                   ${http_status_res_code}
     Should Be Equal As Strings    ${http_status_res_code}    200
