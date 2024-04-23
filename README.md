@@ -1,9 +1,20 @@
-# ondemand-robot-automation-test
-should be connect VPN : tel-sg
-
 # Install python 3.7.2
  - URL : https://www.python.org/downloads/release/python-372/
  - python --version
+
+#Install Appium
+https://github.com/appium/appium-desktop/releases/tag/1.8.0
+
+#Install Android studio
+https://developer.android.com/studio/
+
+CMD : pip install robotframework-appiumlibrary
+pip install Appium-Python-Client
+
+adb devices  > device Name เช่น 42004677e08c4503 
+adb shell  > dumpsys window windows | grep -E 'mCurrentFocus'
+"appPackage": "com.facebook.katana"
+"appActivity": "com.facebook.katana.dbl.activity.FacebookLoginActivity"
 
 
 # Install robotframework
@@ -30,8 +41,8 @@ Settings Library
 
 *** Variables ***
  - ${browser}    chrome
- - ${url}        https://api.staging.true-e-logistics.com
- - ${path}       ondemand-gateway/v1/order
+ - ${url}        https://${host}
+ - ${path}       /${path}
 
 *** Keywords ***
  - Validation Http status code success 200 OK

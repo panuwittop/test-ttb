@@ -1,0 +1,45 @@
+pipeline {
+agent {
+    Node {
+    Label 'TEST-TTB'
+        }
+    }
+Tools {
+    Automate 'TTB'
+    }
+stages {
+        stage('Checkout Code From Git') {
+            Steps {
+                Checkout([
+                    $class: 'Github',
+                    Branches: [
+                        [name: '*/master'
+                        ]
+                    ],
+                    UserRemoteConfigs: [
+                        [url: 'https://github.com/toppanuwit/test-ttb.git']
+                        ])
+                    }
+                }
+            }
+stages {
+        stage('Run Test Automate TTB') {
+            echo "Start to the run test automate TTB"
+            cd /var/automation/toppanuwit/test-ttb
+            pip install robotframework
+            robot --version
+            pip install robotframework-selenium2library
+            pip install robotframework-requests
+            robot ui_run_herokuapp.robot
+                }
+            }
+stages {
+        stage('Send Result To Jenkins and send slack notification') {
+            slackSend "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            attachments : Object (optional)
+            baseUrl : String (optional)
+            echo  "Post-build Actions"
+            Build was aborted
+                }
+            }
+        }
